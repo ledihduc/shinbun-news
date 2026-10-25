@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tech-insight-jp-20261025.ducswan36.chatgpt.site/sitemap.xml

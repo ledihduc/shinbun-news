@@ -1,0 +1,11 @@
+{
+  "name": "tech-insight-jp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs && python3 -m http.server 4173 -d dist",
+    "check": "node scripts/check.mjs"
+  }
+}
