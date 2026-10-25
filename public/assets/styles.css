@@ -364,14 +364,14 @@ select { min-height: 42px; padding: 6px 36px 6px 12px; border: 1px solid var(--l
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
 
-/* Nikkei xTECH-inspired editorial system: dense hierarchy, strong blue navigation. */
+/* Nikkei xTECH-inspired editorial system with an original deep-teal identity. */
 :root {
-  --blue: #2352d4;
-  --blue-dark: #153ca8;
+  --blue: #0b6b6d;
+  --blue-dark: #075455;
   --ink: #15233a;
   --ink-strong: #0d1828;
   --soft: #f4f6f9;
-  --soft-blue: #eef3ff;
+  --soft-blue: #e9f7f5;
   --shell: min(1280px, calc(100% - 48px));
 }
 
