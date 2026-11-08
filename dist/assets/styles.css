@@ -632,3 +632,53 @@ html, body { max-width: 100%; overflow-x: clip; }
   .static-page-header { padding-bottom: 28px; }
   .static-page-body section { padding: 27px 0; }
 }
+
+/* Keep the homepage grid stable after the editorial theme overrides above. */
+@media (max-width: 1050px) {
+  .home-content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 46px;
+  }
+
+  .home-content > .latest,
+  .home-content > aside,
+  .list-item > div,
+  .article-card .card-body {
+    min-width: 0;
+  }
+
+  .home-content > aside {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .home-content aside .editor-note,
+  .home-content aside .keyword-panel {
+    min-width: 0;
+    margin: 0;
+  }
+
+  .list-item h3,
+  .article-card h3 {
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+}
+
+@media (max-width: 740px) {
+  .home-content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 38px;
+  }
+
+  .home-content > aside {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .list-item,
+  .search-result {
+    grid-template-columns: minmax(96px, 118px) minmax(0, 1fr);
+  }
+}
