@@ -277,7 +277,14 @@ const sitemapEntries = [
   ...articles.map((article) => ({ path: `/articles/${article.slug}/`, lastmod: article.updatedAt || article.publishedAt }))
 ];
 await emit('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemapEntries.map(({ path, lastmod }) => `<url><loc>${siteUrl}${path}</loc><lastmod>${lastmod}</lastmod></url>`).join('')}</urlset>`);
-await emit('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`);
+const newsNow = new Date();
+const newsCutoff = new Date(newsNow.getTime() - (2 * 24 * 60 * 60 * 1000));
+const recentNewsArticles = articles.filter((article) => {
+  const published = new Date(`${article.publishedAt}T00:00:00Z`);
+  return published >= newsCutoff && published <= newsNow;
+});
+await emit('news-sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">${recentNewsArticles.map((article) => `<url><loc>${siteUrl}/articles/${article.slug}/</loc><news:news><news:publication><news:name>${esc(siteName)}</news:name><news:language>ja</news:language></news:publication><news:publication_date>${article.publishedAt}</news:publication_date><news:title>${esc(article.title)}</news:title></news:news></url>`).join('')}</urlset>`);
+await emit('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\nSitemap: ${siteUrl}/news-sitemap.xml\n`);
 await emit('ads.txt', `google.com, pub-8439241871121285, DIRECT, f08c47fec0942fa0\n`);
 await emit('feed.xml', `<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>${siteName}</title><id>${siteUrl}/</id><link href="${siteUrl}/feed.xml" rel="self"/><link href="${siteUrl}/"/><updated>${withTimeZone(latestArticleDate)}</updated><author><name>${editorialName}</name><uri>${absolute(authorPath)}</uri></author>${byDate.slice(0, 10).map((a) => `<entry><title>${esc(a.title)}</title><id>${siteUrl}/articles/${a.slug}/</id><link href="${siteUrl}/articles/${a.slug}/"/><published>${withTimeZone(a.publishedAt)}</published><updated>${withTimeZone(a.updatedAt || a.publishedAt)}</updated><author><name>${esc(a.author)}</name><uri>${absolute(authorPath)}</uri></author><summary>${esc(a.description)}</summary></entry>`).join('')}</feed>`);
 console.log(`Built ${articles.length} articles, ${categories.length} categories -> ${out}`);

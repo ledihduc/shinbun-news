@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
 Sitemap: https://shinbun.news/sitemap.xml
+Sitemap: https://shinbun.news/news-sitemap.xml

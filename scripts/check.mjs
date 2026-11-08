@@ -53,7 +53,7 @@ for (const article of articles) {
 }
 
 const requiredOutputs = [
-  'index.html', 'search/index.html', 'sitemap.xml', 'robots.txt', 'feed.xml', 'ads.txt', '404.html',
+  'index.html', 'search/index.html', 'sitemap.xml', 'news-sitemap.xml', 'robots.txt', 'feed.xml', 'ads.txt', '404.html',
   'about/index.html', 'editorial-policy/index.html', 'authors/editorial-team/index.html',
   'privacy/index.html', 'contact/index.html', 'assets/publisher-logo.svg'
 ];
@@ -132,6 +132,14 @@ const sitemap = await readFile(join(dist, 'sitemap.xml'), 'utf8').catch(() => ''
 if (sitemap.includes('/search/')) errors.push('sitemap: search page must not be included');
 if (!sitemap.includes('<lastmod>')) errors.push('sitemap: missing lastmod values');
 for (const path of ['/about/', '/editorial-policy/', '/authors/editorial-team/', '/privacy/', '/contact/']) if (!sitemap.includes(path)) errors.push(`sitemap: missing ${path}`);
+
+const newsSitemap = await readFile(join(dist, 'news-sitemap.xml'), 'utf8').catch(() => '');
+if (!newsSitemap.includes('xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"')) errors.push('news sitemap: missing Google News namespace');
+if (!newsSitemap.includes('<news:name>新聞・ニュース</news:name>') && newsSitemap.includes('<url>')) errors.push('news sitemap: publication name is inconsistent');
+
+const robots = await readFile(join(dist, 'robots.txt'), 'utf8').catch(() => '');
+const sitemapOrigin = sitemap.match(/<loc>(https:\/\/[^/]+)/)?.[1];
+if (!sitemapOrigin || !robots.includes(`Sitemap: ${sitemapOrigin}/sitemap.xml`) || !robots.includes(`Sitemap: ${sitemapOrigin}/news-sitemap.xml`)) errors.push('robots.txt: missing sitemap declarations for the canonical origin');
 
 const adsTxt = await readFile(join(dist, 'ads.txt'), 'utf8').catch(() => '');
 if (adsTxt.trim() !== 'google.com, pub-8439241871121285, DIRECT, f08c47fec0942fa0') errors.push('ads.txt: invalid Google AdSense publisher declaration');

@@ -84,6 +84,8 @@ The deployable directory is `dist/`. It works on any static host. Set `SITE_URL`
 
 Before making the production site public, build once with the final domain and verify that `dist/sitemap.xml`, canonical tags, Open Graph URLs, and structured data all use that same origin. The search page and 404 page intentionally use `noindex,follow`; neither is included in the sitemap.
 
+The build also emits `news-sitemap.xml` with articles published in the previous two days. For Google discovery, verify the `shinbun.news` Domain property in Search Console, submit both `/sitemap.xml` and `/news-sitemap.xml`, then use URL Inspection for the homepage and a small number of important new articles. Repeated requests do not accelerate indexing.
+
 ### VPS auto-deploy without GitHub Actions
 
 The repository includes a VPS-side CI/CD setup in `deploy/`. GitHub does not run the build: a signed push webhook tells the VPS to fetch `main`, run `npm run build` and `npm run check`, and atomically switch Nginx to the new static release.
