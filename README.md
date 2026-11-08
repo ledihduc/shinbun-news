@@ -72,6 +72,12 @@ The site is static, so publishing in the CMS must trigger a new build. The recom
 
 This normally updates the live site in seconds to a few minutes while preserving fully rendered HTML for SEO. Authenticate the webhook with a secret signature, allow only one deployment at a time, and keep the previous release available for rollback. Do not put the webhook secret or CMS token in browser code or the repository.
 
+## Google AdSense
+
+Every generated HTML page loads the asynchronous AdSense library for publisher `ca-pub-8439241871121285`. The build also emits `dist/ads.txt` with the matching Google seller declaration. The privacy page discloses Google AdSense and cookie usage.
+
+This installs the site-level code required for AdSense and Auto ads. Manual ad units still require their own `data-ad-slot` identifiers. Google must be able to access the public production domain before it can review the site or verify `ads.txt`.
+
 ## Deployment
 
 The deployable directory is `dist/`. It works on any static host. Set `SITE_URL` during build when moving to a custom domain so canonical URLs, sitemap, and structured data use the final origin.

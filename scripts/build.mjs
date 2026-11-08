@@ -11,6 +11,7 @@ const assetVersion = '20261108-2';
 const policyUpdatedAt = '2026-11-08';
 const authorPath = '/authors/editorial-team/';
 const defaultRobots = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
+const adsenseClient = 'ca-pub-8439241871121285';
 
 async function loadArticles() {
   if (!process.env.CONTENT_API_URL) return localArticles;
@@ -82,7 +83,7 @@ function head({ title, description, path = '/', image = '/assets/data-center.jpg
   const canonical = `${siteUrl}${path}`;
   const socialImage = absolute(image);
   const articleMeta = article ? `<meta property="article:published_time" content="${withTimeZone(article.publishedAt)}"><meta property="article:modified_time" content="${withTimeZone(article.updatedAt || article.publishedAt)}"><meta property="article:section" content="${esc(categoryFor(article).name)}"><meta property="article:author" content="${absolute(authorPath)}">` : '';
-  return `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(fullTitle)}</title><meta name="description" content="${esc(description)}"><meta name="robots" content="${robots}"><link rel="canonical" href="${canonical}"><link rel="alternate" type="application/atom+xml" title="${siteName} 最新記事" href="/feed.xml"><meta name="theme-color" content="#ffffff"><meta property="og:locale" content="ja_JP"><meta property="og:type" content="${pageType}"><meta property="og:site_name" content="${siteName}"><meta property="og:title" content="${esc(fullTitle)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${socialImage}"><meta property="og:image:width" content="1440"><meta property="og:image:height" content="810"><meta property="og:image:alt" content="${esc(title)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(fullTitle)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${socialImage}">${articleMeta}<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/styles.css?v=${assetVersion}" as="style"><link rel="stylesheet" href="/assets/styles.css?v=${assetVersion}">${schema ? `<script type="application/ld+json">${json(schema)}</script>` : ''}</head><body>`;
+  return `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(fullTitle)}</title><meta name="description" content="${esc(description)}"><meta name="robots" content="${robots}"><link rel="canonical" href="${canonical}"><link rel="alternate" type="application/atom+xml" title="${siteName} 最新記事" href="/feed.xml"><meta name="theme-color" content="#ffffff"><meta property="og:locale" content="ja_JP"><meta property="og:type" content="${pageType}"><meta property="og:site_name" content="${siteName}"><meta property="og:title" content="${esc(fullTitle)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${socialImage}"><meta property="og:image:width" content="1440"><meta property="og:image:height" content="810"><meta property="og:image:alt" content="${esc(title)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(fullTitle)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${socialImage}">${articleMeta}<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}" crossorigin="anonymous"></script><link rel="preload" href="/assets/styles.css?v=${assetVersion}" as="style"><link rel="stylesheet" href="/assets/styles.css?v=${assetVersion}">${schema ? `<script type="application/ld+json">${json(schema)}</script>` : ''}</head><body>`;
 }
 
 function page({ title, description, path, active = '', image, schema, content, bodyClass = '', robots, pageType, article }) {
@@ -217,9 +218,10 @@ const informationPages = [
   },
   {
     path: '/privacy/', title: 'プライバシーポリシー', kicker: 'PRIVACY',
-    description: 'shinbun.newsにおけるアクセス情報、外部リンク、お問い合わせ情報の取り扱いについて説明します。',
+    description: 'shinbun.newsにおける広告、Cookie、アクセス情報、外部リンク、お問い合わせ情報の取り扱いについて説明します。',
     sections: [
-      { heading: 'アクセス情報', body: ['当サイト自体は、現時点で広告配信や独自のアクセス解析Cookieを使用していません。ホスティング事業者が、セキュリティと安定運用のためにIPアドレスやリクエスト情報などの技術ログを処理する場合があります。'] },
+      { heading: '広告とCookie', body: ['当サイトは、第三者配信の広告サービス「Google AdSense」を利用します。Googleなどの第三者配信事業者は、Cookieを使用して、利用者が当サイトや他のウェブサイトへ過去にアクセスした情報に基づく広告を配信する場合があります。広告で使用される情報と設定については、<a href="https://policies.google.com/technologies/ads?hl=ja" rel="noopener noreferrer">Googleの広告に関するポリシー</a>をご確認ください。'] },
+      { heading: 'アクセス情報', body: ['ホスティング事業者や広告配信事業者が、セキュリティ、安定運用、広告配信のためにIPアドレス、端末情報、Cookie、リクエスト情報などを処理する場合があります。'] },
       { heading: '外部サイトへのリンク', body: ['当サイトから移動した外部サイトでは、各運営者のプライバシーポリシーが適用されます。'] },
       { heading: 'お問い合わせ', body: ['お問い合わせ時に提供された情報は、内容の確認と返信のために利用します。本方針の重要な変更は、このページの更新日とともに公開します。'] }
     ]
@@ -259,5 +261,6 @@ const sitemapEntries = [
 ];
 await emit('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemapEntries.map(({ path, lastmod }) => `<url><loc>${siteUrl}${path}</loc><lastmod>${lastmod}</lastmod></url>`).join('')}</urlset>`);
 await emit('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`);
+await emit('ads.txt', `google.com, pub-8439241871121285, DIRECT, f08c47fec0942fa0\n`);
 await emit('feed.xml', `<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>${siteName}</title><id>${siteUrl}/</id><link href="${siteUrl}/feed.xml" rel="self"/><link href="${siteUrl}/"/><updated>${withTimeZone(latestArticleDate)}</updated><author><name>${editorialName}</name><uri>${absolute(authorPath)}</uri></author>${byDate.slice(0, 10).map((a) => `<entry><title>${esc(a.title)}</title><id>${siteUrl}/articles/${a.slug}/</id><link href="${siteUrl}/articles/${a.slug}/"/><published>${withTimeZone(a.publishedAt)}</published><updated>${withTimeZone(a.updatedAt || a.publishedAt)}</updated><author><name>${esc(a.author)}</name><uri>${absolute(authorPath)}</uri></author><summary>${esc(a.description)}</summary></entry>`).join('')}</feed>`);
 console.log(`Built ${articles.length} articles, ${categories.length} categories -> ${out}`);

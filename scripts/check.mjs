@@ -40,7 +40,7 @@ for (const article of articles) {
 }
 
 const requiredOutputs = [
-  'index.html', 'search/index.html', 'sitemap.xml', 'robots.txt', 'feed.xml', '404.html',
+  'index.html', 'search/index.html', 'sitemap.xml', 'robots.txt', 'feed.xml', 'ads.txt', '404.html',
   'about/index.html', 'editorial-policy/index.html', 'authors/editorial-team/index.html',
   'privacy/index.html', 'contact/index.html', 'assets/publisher-logo.svg'
 ];
@@ -71,6 +71,8 @@ for (const file of htmlFiles) {
   if ((html.match(/<h1\b/gi) || []).length !== 1) errors.push(`${page}: expected exactly one h1`);
   if (!/<meta property="og:title"/i.test(html) || !/<meta name="twitter:title"/i.test(html)) errors.push(`${page}: incomplete social metadata`);
   if (!/<link rel="alternate" type="application\/atom\+xml"/i.test(html)) errors.push(`${page}: missing feed discovery link`);
+  const adsenseScripts = html.match(/<script async src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=ca-pub-8439241871121285" crossorigin="anonymous"><\/script>/g) || [];
+  if (adsenseScripts.length !== 1) errors.push(`${page}: expected exactly one configured AdSense script`);
   if (html.includes('デザイン用のサンプル')) errors.push(`${page}: sample-content marker remains`);
   if (title) titles.set(title, [...(titles.get(title) || []), page]);
   if (canonical) canonicals.set(canonical, [...(canonicals.get(canonical) || []), page]);
@@ -105,6 +107,9 @@ const sitemap = await readFile(join(dist, 'sitemap.xml'), 'utf8').catch(() => ''
 if (sitemap.includes('/search/')) errors.push('sitemap: search page must not be included');
 if (!sitemap.includes('<lastmod>')) errors.push('sitemap: missing lastmod values');
 for (const path of ['/about/', '/editorial-policy/', '/authors/editorial-team/', '/privacy/', '/contact/']) if (!sitemap.includes(path)) errors.push(`sitemap: missing ${path}`);
+
+const adsTxt = await readFile(join(dist, 'ads.txt'), 'utf8').catch(() => '');
+if (adsTxt.trim() !== 'google.com, pub-8439241871121285, DIRECT, f08c47fec0942fa0') errors.push('ads.txt: invalid Google AdSense publisher declaration');
 
 if (errors.length) {
   console.error(errors.join('\n'));
