@@ -7,7 +7,7 @@ const out = join(root, 'dist');
 const siteUrl = (process.env.SITE_URL || 'https://shinbun.news').replace(/\/$/, '');
 const siteName = '新聞・ニュース';
 const editorialName = '新聞・ニュース編集部';
-const assetVersion = '20261108-6';
+const assetVersion = '20261108-8';
 const policyUpdatedAt = '2026-11-08';
 const authorPath = '/authors/editorial-team/';
 const defaultRobots = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
@@ -77,7 +77,7 @@ function header(active = '') {
 }
 
 function footer() {
-  return `<footer class="footer"><div class="shell footer-grid"><div><a class="brand brand--footer" href="/"><span class="brand-mark"></span><span class="brand-name">新聞・ニュース</span></a><p>テクノロジーを、ビジネスの実践へ。<br>働く人の判断に役立つ知識を、わかりやすく届けます。</p></div><nav aria-label="フッターメニュー">${categories.map((c) => `<a href="/category/${c.slug}/">${esc(c.name)}</a>`).join('')}<a href="/search/">記事を検索</a><a href="/about/">サイトについて</a><a href="/editorial-policy/">編集方針</a><a href="${authorPath}">編集部</a><a href="/contact/">お問い合わせ</a><a href="/privacy/">プライバシー</a></nav></div><div class="shell footer-bottom"><span>© 2026 ${siteName}</span><span><a href="/editorial-policy/">編集方針と制作プロセス</a></span></div></footer>`;
+  return `<footer class="footer"><div class="shell footer-grid"><div><a class="brand brand--footer" href="/"><span class="brand-mark"></span><span class="brand-name">新聞・ニュース</span></a><p>テクノロジーを、ビジネスの実践へ。<br>働く人の判断に役立つ知識を、わかりやすく届けます。</p></div><nav aria-label="フッターメニュー">${categories.map((c) => `<a href="/category/${c.slug}/">${esc(c.name)}</a>`).join('')}<a href="/search/">記事を検索</a><a href="/editorial-policy/">編集方針</a><a href="${authorPath}">編集部</a><a href="/contact/">お問い合わせ</a><a href="/privacy/">プライバシー</a></nav></div><div class="shell footer-bottom"><span>© 2026 ${siteName}</span><span><a href="/editorial-policy/">編集方針と制作プロセス</a></span></div></footer>`;
 }
 
 function head({ title, description, path = '/', image = '/assets/data-center.jpg', schema = null, robots = defaultRobots, pageType = 'website', article = null }) {
@@ -108,11 +108,11 @@ function listItem(article) {
 }
 
 function inFeedAd() {
-  return `<div class="feed-ad" data-feed-ad aria-label="広告"><span class="feed-ad-label">広告</span><ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="${adsenseFeedLayoutKey}" data-ad-client="${adsenseClient}" data-ad-slot="${adsenseFeedSlot}"></ins></div>`;
+  return `<div class="feed-ad" data-feed-ad aria-label="広告" aria-hidden="true"><span class="feed-ad-label">広告</span><ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="${adsenseFeedLayoutKey}" data-ad-client="${adsenseClient}" data-ad-slot="${adsenseFeedSlot}"></ins></div>`;
 }
 
 function inArticleAd() {
-  return `<div class="article-ad" data-article-ad aria-label="広告"><span class="feed-ad-label">広告</span><ins class="adsbygoogle" style="display:block;text-align:center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="${adsenseClient}" data-ad-slot="${adsenseArticleSlot}"></ins></div>`;
+  return `<div class="article-ad" data-article-ad aria-label="広告" aria-hidden="true"><span class="feed-ad-label">広告</span><ins class="adsbygoogle" style="display:block;text-align:center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="${adsenseClient}" data-ad-slot="${adsenseArticleSlot}"></ins></div>`;
 }
 
 function renderFeed(items, renderer, insertAfter = 3) {
@@ -204,15 +204,6 @@ function informationPage({ path, title, description, kicker, sections, schema })
 }
 
 const informationPages = [
-  {
-    path: '/about/', title: '新聞・ニュースについて', kicker: 'ABOUT',
-    description: '新聞・ニュースは、テクノロジーの仕組みと実務への影響を、働く人の判断に役立つ形で伝える日本語メディアです。',
-    sections: [
-      { heading: '私たちの目的', body: ['新聞・ニュースは、AI、DX、セキュリティ、クラウド、製造・ロボティクスを中心に、話題の大きさだけでなく、現場で何を確認し、どう判断するかを整理して届けます。'] },
-      { heading: '扱うテーマ', body: ['技術の基本、導入時の論点、運用上のリスク、データや権限の設計など、業務で再利用できる知識を重点的に扱います。'], list: ['AI・生成AIとデータ活用', 'DXと業務改善', 'セキュリティとガバナンス', 'クラウド運用とコスト', '製造現場とロボティクス'] },
-      { heading: '透明性について', body: ['記事の制作基準、AIツールの利用、訂正の考え方は<a href="/editorial-policy/">編集方針</a>で公開しています。記事の執筆主体については<a href="/authors/editorial-team/">編集部プロフィール</a>をご覧ください。'] }
-    ]
-  },
   {
     path: '/editorial-policy/', title: '編集方針', kicker: 'EDITORIAL POLICY',
     description: '新聞・ニュースの記事制作、情報源の扱い、AIツールの利用、訂正と更新に関する基本方針です。',

@@ -54,10 +54,11 @@ for (const article of articles) {
 
 const requiredOutputs = [
   'index.html', 'search/index.html', 'sitemap.xml', 'news-sitemap.xml', 'robots.txt', 'feed.xml', 'ads.txt', '404.html',
-  'about/index.html', 'editorial-policy/index.html', 'authors/editorial-team/index.html',
+  'editorial-policy/index.html', 'authors/editorial-team/index.html',
   'privacy/index.html', 'contact/index.html', 'assets/publisher-logo.svg'
 ];
 for (const path of requiredOutputs) if (!await exists(join(dist, path))) errors.push(`missing build output: ${path}`);
+if (await exists(join(dist, 'about', 'index.html'))) errors.push('removed About page is still present in the build');
 
 async function walk(dir) {
   const output = [];
@@ -104,6 +105,7 @@ for (const category of categories) {
 
 const siteScript = await readFile(join(dist, 'assets', 'site.js'), 'utf8').catch(() => '');
 if (!siteScript.includes("const adsenseFeedSlot = '3015789884'")) errors.push('site.js: missing dynamic search in-feed ad slot');
+if (!siteScript.includes("element.dataset.adStatus === 'filled'") || !siteScript.includes("attributeFilter: ['data-ad-status']")) errors.push('site.js: missing unfilled AdSense visibility guard');
 
 for (const article of articles) {
   const html = await readFile(join(dist, 'articles', article.slug, 'index.html'), 'utf8').catch(() => '');
@@ -131,7 +133,8 @@ if (!/<meta name="robots" content="noindex,follow">/i.test(notFound)) errors.pus
 const sitemap = await readFile(join(dist, 'sitemap.xml'), 'utf8').catch(() => '');
 if (sitemap.includes('/search/')) errors.push('sitemap: search page must not be included');
 if (!sitemap.includes('<lastmod>')) errors.push('sitemap: missing lastmod values');
-for (const path of ['/about/', '/editorial-policy/', '/authors/editorial-team/', '/privacy/', '/contact/']) if (!sitemap.includes(path)) errors.push(`sitemap: missing ${path}`);
+if (sitemap.includes('/about/')) errors.push('sitemap: removed About page must not be included');
+for (const path of ['/editorial-policy/', '/authors/editorial-team/', '/privacy/', '/contact/']) if (!sitemap.includes(path)) errors.push(`sitemap: missing ${path}`);
 
 const newsSitemap = await readFile(join(dist, 'news-sitemap.xml'), 'utf8').catch(() => '');
 if (!newsSitemap.includes('xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"')) errors.push('news sitemap: missing Google News namespace');

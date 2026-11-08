@@ -5,9 +5,24 @@
   const adsenseClient = 'ca-pub-8439241871121285';
   const adsenseFeedSlot = '3015789884';
   const adsenseFeedLayoutKey = '-ha+d-1s-52+g5';
-  const feedAdMarkup = () => `<div class="feed-ad" data-feed-ad aria-label="広告"><span class="feed-ad-label">広告</span><ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="${adsenseFeedLayoutKey}" data-ad-client="${adsenseClient}" data-ad-slot="${adsenseFeedSlot}"></ins></div>`;
+  const feedAdMarkup = () => `<div class="feed-ad" data-feed-ad aria-label="広告" aria-hidden="true"><span class="feed-ad-label">広告</span><ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="${adsenseFeedLayoutKey}" data-ad-client="${adsenseClient}" data-ad-slot="${adsenseFeedSlot}"></ins></div>`;
+  const watchAdStatus = (element) => {
+    const container = element.closest('[data-feed-ad], [data-article-ad]');
+    if (!container) return;
+    const update = () => {
+      const filled = element.dataset.adStatus === 'filled';
+      container.classList.toggle('is-filled', filled);
+      container.setAttribute('aria-hidden', String(!filled));
+    };
+    update();
+    if (!element._adStatusObserver) {
+      element._adStatusObserver = new MutationObserver(update);
+      element._adStatusObserver.observe(element, { attributes: true, attributeFilter: ['data-ad-status'] });
+    }
+  };
   const initializeAds = (root = document) => {
     qsa('.adsbygoogle:not([data-ad-initialized])', root).forEach((element) => {
+      watchAdStatus(element);
       element.dataset.adInitialized = 'true';
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
