@@ -1,6 +1,7 @@
 (() => {
   const qs = (selector, root = document) => root.querySelector(selector);
   const qsa = (selector, root = document) => [...root.querySelectorAll(selector)];
+  const escapeHTML = (value = '') => String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
   const toast = (message) => {
     const element = qs('#toast');
     if (!element) return;
@@ -116,7 +117,10 @@
     });
 
     const normalize = (value) => String(value || '').toLocaleLowerCase('ja-JP').normalize('NFKC');
-    const card = (article) => `<article class="list-item search-result"><a class="list-thumb" href="/articles/${article.slug}/"><img src="${article.image}" alt="" width="320" height="210" loading="lazy"></a><div><div class="eyebrow"><a href="/category/${article.category}/">${article.categoryName}</a><span>・${article.type}</span></div><h3><a href="/articles/${article.slug}/">${article.title}</a></h3><p>${article.description}</p><div class="meta"><time datetime="${article.publishedAt}">${article.publishedAt.replaceAll('-', '.')}</time><span>${article.readTime}分で読める</span></div></div></article>`;
+    const card = (article) => {
+      const webp = article.images?.wide || (/^https?:\/\//.test(article.image) ? article.image : article.image.replace(/\.[^.]+$/, '-16x9.webp'));
+      return `<article class="list-item search-result"><a class="list-thumb" href="/articles/${article.slug}/"><picture><source srcset="${escapeHTML(webp)}" type="image/webp"><img src="${escapeHTML(article.image)}" alt="" width="320" height="180" loading="lazy"></picture></a><div><div class="eyebrow"><a href="/category/${article.category}/">${escapeHTML(article.categoryName)}</a><span>・${escapeHTML(article.type)}</span></div><h3><a href="/articles/${article.slug}/">${escapeHTML(article.title)}</a></h3><p>${escapeHTML(article.description)}</p><div class="meta"><time datetime="${escapeHTML(article.publishedAt)}">${escapeHTML(article.publishedAt.replaceAll('-', '.'))}</time><span>${Number(article.readTime)}分で読める</span></div></div></article>`;
+    };
     const render = () => {
       results.innerHTML = current.slice(0, visibleCount).map(card).join('');
       empty.hidden = current.length > 0;
