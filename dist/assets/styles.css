@@ -342,9 +342,7 @@ select { min-height: 42px; padding: 6px 36px 6px 12px; border: 1px solid var(--l
   .search-layout { grid-template-columns: 1fr; gap: 28px; padding-block: 26px 70px; }
   .search-filters { padding: 18px 20px; }
   .filter-heading h2 { margin: 0; }
-  .filter-heading button { display: block; }
-  .filter-fields { display: none; padding-top: 18px; }
-  .search-filters.is-open .filter-fields { display: grid; }
+  .filter-fields { display: grid; padding-top: 18px; }
   .results-head h2 { font-size: 23px; }
   .not-found > div { flex-direction: column; align-items: stretch; }
   .footer-grid { grid-template-columns: 1fr; gap: 38px; }

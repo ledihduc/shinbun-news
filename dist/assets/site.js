@@ -137,11 +137,6 @@
       input.value = '';
       run(true);
     });
-    qs('[data-filter-toggle]')?.addEventListener('click', (event) => {
-      const open = filters.classList.toggle('is-open');
-      event.currentTarget.setAttribute('aria-expanded', String(open));
-      event.currentTarget.textContent = open ? '条件を閉じる' : '条件を表示';
-    });
     more.addEventListener('click', () => { visibleCount += 6; render(); });
     window.addEventListener('popstate', syncFromUrl);
     syncFromUrl();
