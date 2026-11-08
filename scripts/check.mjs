@@ -5,7 +5,7 @@ import { categories } from '../src/articles.js';
 const root = new URL('..', import.meta.url).pathname;
 const dist = join(root, 'dist');
 const errors = [];
-const requiredArticleFields = ['id', 'slug', 'title', 'description', 'category', 'type', 'tags', 'image', 'publishedAt', 'author', 'readTime', 'points', 'sections'];
+const requiredArticleFields = ['id', 'slug', 'title', 'description', 'seoDescription', 'category', 'type', 'tags', 'image', 'publishedAt', 'updatedAt', 'author', 'readTime', 'points', 'sections', 'sources'];
 const slugs = new Set();
 
 const exists = async (path) => access(path).then(() => true).catch(() => false);
@@ -20,6 +20,20 @@ for (const article of articles) {
   slugs.add(article.slug);
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug)) errors.push(`${article.slug}: slug must use lowercase ASCII letters, numbers, and hyphens`);
   if (!categories.some((category) => category.slug === article.category)) errors.push(`${article.slug}: unknown category ${article.category}`);
+  if (article.updatedAt < article.publishedAt) errors.push(`${article.slug}: updatedAt cannot be earlier than publishedAt`);
+  if (article.description.length < 55 || article.description.length > 140) errors.push(`${article.slug}: description should be 55-140 characters`);
+  if (article.seoDescription.length < 55 || article.seoDescription.length > 160) errors.push(`${article.slug}: seoDescription should be 55-160 characters`);
+  if (article.points.length < 3) errors.push(`${article.slug}: at least three editorial points are required`);
+  if (article.sections.length < 4) errors.push(`${article.slug}: at least four article sections are required`);
+  const sectionHeadings = new Set();
+  let articleBodyLength = 0;
+  for (const section of article.sections) {
+    if (!section.heading || !Array.isArray(section.body) || section.body.length < 2) errors.push(`${article.slug}: every section requires a heading and at least two paragraphs`);
+    if (sectionHeadings.has(section.heading)) errors.push(`${article.slug}: duplicate section heading "${section.heading}"`);
+    sectionHeadings.add(section.heading);
+    articleBodyLength += (section.body || []).join('').length;
+  }
+  if (articleBodyLength < 800) errors.push(`${article.slug}: article body is too short (${articleBodyLength} characters; minimum 800)`);
   const isRemoteImage = /^https:\/\//.test(article.image);
   if (isRemoteImage && (!article.images?.wide || !article.images?.landscape || !article.images?.square)) errors.push(`${article.slug}: remote image requires images.wide, images.landscape, and images.square`);
   const imageSet = article.images || { wide: assetVariant(article.image, '16x9'), landscape: assetVariant(article.image, '4x3'), square: assetVariant(article.image, '1x1') };
@@ -34,9 +48,8 @@ for (const article of articles) {
       }
     }
   }
-  if (article.sources) {
-    for (const source of article.sources) if (!source.title || !/^https:\/\//.test(source.url || '')) errors.push(`${article.slug}: invalid source entry`);
-  }
+  if (article.sources.length < 2) errors.push(`${article.slug}: at least two primary or authoritative sources are required`);
+  for (const source of article.sources) if (!source.title || !source.publisher || !/^https:\/\//.test(source.url || '')) errors.push(`${article.slug}: invalid source entry`);
 }
 
 const requiredOutputs = [

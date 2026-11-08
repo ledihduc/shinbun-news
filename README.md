@@ -1,4 +1,4 @@
-# shinbun.news　新聞・NEWS
+# 新聞・ニュース（Shinbun.news）
 
 Static-first Japanese technology news website. It generates crawlable HTML for the homepage, category pages, article pages, and search page.
 
@@ -13,7 +13,7 @@ Open `http://localhost:4173`.
 
 ## Update articles
 
-Edit `src/articles.js`, then run `npm run build`. The same article data powers every page, search, sitemap, and Atom feed.
+Edit article metadata in `src/articles.js` and the newsroom-quality revisions in `src/editorial-content.js`, then run `npm run build`. The same article data powers every page, search, sitemap, and Atom feed.
 
 To build from a backend or headless CMS instead, set `CONTENT_API_URL` to an endpoint that returns either an article array or `{ "articles": [...] }` using the same fields:
 
@@ -83,3 +83,15 @@ This installs the site-level code required for AdSense and Auto ads. Native in-f
 The deployable directory is `dist/`. It works on any static host. Set `SITE_URL` during build when moving to a custom domain so canonical URLs, sitemap, and structured data use the final origin.
 
 Before making the production site public, build once with the final domain and verify that `dist/sitemap.xml`, canonical tags, Open Graph URLs, and structured data all use that same origin. The search page and 404 page intentionally use `noindex,follow`; neither is included in the sitemap.
+
+### VPS auto-deploy without GitHub Actions
+
+The repository includes a VPS-side CI/CD setup in `deploy/`. GitHub does not run the build: a signed push webhook tells the VPS to fetch `main`, run `npm run build` and `npm run check`, and atomically switch Nginx to the new static release.
+
+On an Ubuntu/Debian VPS with Node.js 20+, Git and Nginx installed:
+
+```bash
+sudo bash deploy/install.sh
+```
+
+Then configure Nginx and the GitHub push webhook by following `deploy/README.md`. The deployer verifies GitHub's HMAC signature, serializes builds, keeps the previous successful releases for rollback, and leaves the live site unchanged when validation fails.

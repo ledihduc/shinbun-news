@@ -5,8 +5,8 @@ import { articles as localArticles, categories } from '../src/articles.js';
 const root = new URL('..', import.meta.url).pathname;
 const out = join(root, 'dist');
 const siteUrl = (process.env.SITE_URL || 'https://tech-insight-jp-20261025.ducswan36.chatgpt.site').replace(/\/$/, '');
-const siteName = 'shinbun.news　新聞・NEWS';
-const editorialName = 'shinbun.news 編集部';
+const siteName = '新聞・ニュース';
+const editorialName = '新聞・ニュース編集部';
 const assetVersion = '20261108-5';
 const policyUpdatedAt = '2026-11-08';
 const authorPath = '/authors/editorial-team/';
@@ -70,7 +70,7 @@ function header(active = '') {
   <header class="site-header">
     <div class="shell header-main">
       <div class="header-discovery"><button class="menu-button" type="button" aria-label="メニューを開く" aria-controls="site-nav" aria-expanded="false">${icon('menu')}<span>メニュー</span></button><form class="header-search-form" action="/search/" role="search"><label class="sr-only" for="header-search">記事を検索</label><input id="header-search" name="q" type="search" placeholder="キーワードで記事を検索"><button type="submit" aria-label="検索">${icon('search')}</button></form></div>
-      <a class="brand" href="/" aria-label="${siteName} トップ"><span class="brand-mark"></span><span class="brand-name">shinbun.news</span><span class="brand-jp">新聞・NEWS</span></a>
+      <a class="brand" href="/" aria-label="${siteName} トップ"><span class="brand-mark"></span><span class="brand-name">Shinbun.news</span><span class="brand-jp">新聞・ニュース</span></a>
       <div class="header-actions"><a class="header-quick-link" href="/search/"><span>NEW</span>新着記事</a><a class="header-quick-link" href="/#ranking"><span>RANKING</span>ランキング</a><a class="search-link" href="/search/" aria-label="記事を検索">${icon('search')}<span>検索</span></a></div>
     </div>
     <nav id="site-nav" class="nav" aria-label="主要メニュー"><div class="shell nav-inner">${links.map((link) => `<a ${active === link.slug ? 'aria-current="page"' : ''} href="${link.slug ? `/category/${link.slug}/` : '/'}">${esc(link.name)}</a>`).join('')}<a class="nav-keyword" href="/search/?q=${encodeURIComponent('AIエージェント')}">今週のキーワード「AIエージェント」</a></div></nav>
@@ -78,7 +78,7 @@ function header(active = '') {
 }
 
 function footer() {
-  return `<footer class="footer"><div class="shell footer-grid"><div><a class="brand brand--footer" href="/"><span class="brand-mark"></span><span class="brand-name">shinbun.news</span><span class="brand-jp">新聞・NEWS</span></a><p>テクノロジーを、ビジネスの実践へ。<br>働く人の判断に役立つ知識を、わかりやすく届けます。</p></div><nav aria-label="フッターメニュー">${categories.map((c) => `<a href="/category/${c.slug}/">${esc(c.name)}</a>`).join('')}<a href="/search/">記事を検索</a><a href="/about/">サイトについて</a><a href="/editorial-policy/">編集方針</a><a href="${authorPath}">編集部</a><a href="/contact/">お問い合わせ</a><a href="/privacy/">プライバシー</a></nav></div><div class="shell footer-bottom"><span>© 2026 ${siteName}</span><span><a href="/editorial-policy/">編集方針と制作プロセス</a></span></div></footer>`;
+  return `<footer class="footer"><div class="shell footer-grid"><div><a class="brand brand--footer" href="/"><span class="brand-mark"></span><span class="brand-name">新聞・ニュース</span></a><p>テクノロジーを、ビジネスの実践へ。<br>働く人の判断に役立つ知識を、わかりやすく届けます。</p></div><nav aria-label="フッターメニュー">${categories.map((c) => `<a href="/category/${c.slug}/">${esc(c.name)}</a>`).join('')}<a href="/search/">記事を検索</a><a href="/about/">サイトについて</a><a href="/editorial-policy/">編集方針</a><a href="${authorPath}">編集部</a><a href="/contact/">お問い合わせ</a><a href="/privacy/">プライバシー</a></nav></div><div class="shell footer-bottom"><span>© 2026 ${siteName}</span><span><a href="/editorial-policy/">編集方針と制作プロセス</a></span></div></footer>`;
 }
 
 function head({ title, description, path = '/', image = '/assets/data-center.jpg', schema = null, robots = defaultRobots, pageType = 'website', article = null }) {
@@ -134,8 +134,8 @@ function homePage() {
   const popular = [...articles].filter((a) => a.popular).sort((a, b) => a.popular - b.popular).slice(0, 5);
   const groups = ['ai', 'security', 'cloud'].map((slug) => ({ category: categoryMap[slug], items: byDate.filter((a) => a.category === slug).slice(0, 3) }));
   const schema = schemaGraph(
-    { '@type': 'WebSite', '@id': `${siteUrl}/#website`, name: 'shinbun.news', alternateName: '新聞・NEWS', url: `${siteUrl}/`, inLanguage: 'ja-JP', publisher: { '@id': `${siteUrl}/#organization` }, potentialAction: { '@type': 'SearchAction', target: `${siteUrl}/search/?q={search_term_string}`, 'query-input': 'required name=search_term_string' } },
-    { '@type': 'Organization', '@id': `${siteUrl}/#organization`, name: 'shinbun.news', alternateName: '新聞・NEWS', url: `${siteUrl}/`, logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/publisher-logo.svg`, width: 512, height: 512 }, sameAs: ['https://github.com/ledihduc/shinbun-news'] }
+    { '@type': 'WebSite', '@id': `${siteUrl}/#website`, name: '新聞・ニュース', alternateName: 'Shinbun.news', url: `${siteUrl}/`, inLanguage: 'ja-JP', publisher: { '@id': `${siteUrl}/#organization` }, potentialAction: { '@type': 'SearchAction', target: `${siteUrl}/search/?q={search_term_string}`, 'query-input': 'required name=search_term_string' } },
+    { '@type': 'Organization', '@id': `${siteUrl}/#organization`, name: '新聞・ニュース', alternateName: 'Shinbun.news', url: `${siteUrl}/`, logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/publisher-logo.svg`, width: 512, height: 512 }, sameAs: ['https://github.com/ledihduc/shinbun-news'] }
   );
   const content = `<section class="topic-strip"><div class="shell"><strong>注目のキーワード</strong><div>${['生成AI', 'AIエージェント', 'ゼロトラスト', 'クラウド', '業務改革'].map((t) => `<a href="/search/?q=${encodeURIComponent(t)}">${t}</a>`).join('')}</div></div></section>
   <section class="shell section must-read"><div class="xtech-section-head"><div><h1>今日の必読</h1><span>Today's Picks</span></div></div><div class="must-read-layout"><div class="must-read-main"><article class="lead-news"><div class="lead-news-copy"><div class="eyebrow"><a href="/category/${categoryFor(lead).slug}/">${esc(categoryFor(lead).name)}</a><span>・${esc(lead.type)}</span></div><h2><a href="/articles/${lead.slug}/">${esc(lead.title)}</a></h2><p>${esc(lead.description)}</p>${meta(lead)}</div><a class="lead-news-image" href="/articles/${lead.slug}/">${responsiveImage(lead.image, '', 'width="720" height="405" fetchpriority="high"', lead.images)}</a></article><section class="related-ribbon"><h2>関連記事</h2><div>${leadRelated.map((item) => `<a href="/articles/${item.slug}/">${esc(item.title)}</a>`).join('')}</div></section><div class="must-read-grid">${[second, third, fourth].map((item) => articleCard(item, 'article-card--must')).join('')}</div></div><aside class="home-sidebar"><section class="notice-panel panel"><h2>編集部からのお知らせ</h2><a href="/editorial-policy/">編集方針と制作プロセス</a><a href="/articles/primary-sources-for-tech-news/">技術ニュースを読み解く、一次情報の確かめ方</a><a href="/articles/data-governance-first-role/">データ活用の判断軸を、実務から考える</a></section><div id="ranking">${ranking(popular)}</div></aside></div></section>
@@ -172,7 +172,7 @@ function articlePage(article) {
   const variants = imageVariants(article.image, article.images);
   const articleSchema = schemaGraph(
     { '@type': 'NewsArticle', '@id': `${absolute(path)}#article`, headline: article.title, description: seoDescription, image: [absolute(variants.square), absolute(variants.landscape), absolute(variants.wide)], datePublished: withTimeZone(article.publishedAt), dateModified: withTimeZone(article.updatedAt || article.publishedAt), author: { '@type': 'Organization', '@id': `${absolute(authorPath)}#editorial-team`, name: article.author, url: absolute(authorPath) }, publisher: { '@id': `${siteUrl}/#organization` }, mainEntityOfPage: { '@type': 'WebPage', '@id': absolute(path) }, articleSection: category.name, keywords: article.tags.join(', '), inLanguage: 'ja-JP', isAccessibleForFree: true },
-    { '@type': 'Organization', '@id': `${siteUrl}/#organization`, name: 'shinbun.news', alternateName: '新聞・NEWS', url: `${siteUrl}/`, logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/publisher-logo.svg`, width: 512, height: 512 } },
+    { '@type': 'Organization', '@id': `${siteUrl}/#organization`, name: '新聞・ニュース', alternateName: 'Shinbun.news', url: `${siteUrl}/`, logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/publisher-logo.svg`, width: 512, height: 512 } },
     breadcrumbSchema([{ name: 'トップ', path: '/' }, { name: category.name, path: `/category/${category.slug}/` }, { name: article.title, path }])
   );
   const sourceBox = article.sources?.length
@@ -206,17 +206,17 @@ function informationPage({ path, title, description, kicker, sections, schema })
 
 const informationPages = [
   {
-    path: '/about/', title: 'shinbun.newsについて', kicker: 'ABOUT',
-    description: 'shinbun.newsは、テクノロジーの仕組みと実務への影響を、働く人の判断に役立つ形で伝える日本語メディアです。',
+    path: '/about/', title: '新聞・ニュースについて', kicker: 'ABOUT',
+    description: '新聞・ニュースは、テクノロジーの仕組みと実務への影響を、働く人の判断に役立つ形で伝える日本語メディアです。',
     sections: [
-      { heading: '私たちの目的', body: ['shinbun.newsは、AI、DX、セキュリティ、クラウド、製造・ロボティクスを中心に、話題の大きさだけでなく、現場で何を確認し、どう判断するかを整理して届けます。'] },
+      { heading: '私たちの目的', body: ['新聞・ニュースは、AI、DX、セキュリティ、クラウド、製造・ロボティクスを中心に、話題の大きさだけでなく、現場で何を確認し、どう判断するかを整理して届けます。'] },
       { heading: '扱うテーマ', body: ['技術の基本、導入時の論点、運用上のリスク、データや権限の設計など、業務で再利用できる知識を重点的に扱います。'], list: ['AI・生成AIとデータ活用', 'DXと業務改善', 'セキュリティとガバナンス', 'クラウド運用とコスト', '製造現場とロボティクス'] },
       { heading: '透明性について', body: ['記事の制作基準、AIツールの利用、訂正の考え方は<a href="/editorial-policy/">編集方針</a>で公開しています。記事の執筆主体については<a href="/authors/editorial-team/">編集部プロフィール</a>をご覧ください。'] }
     ]
   },
   {
     path: '/editorial-policy/', title: '編集方針', kicker: 'EDITORIAL POLICY',
-    description: 'shinbun.newsの記事制作、情報源の扱い、AIツールの利用、訂正と更新に関する基本方針です。',
+    description: '新聞・ニュースの記事制作、情報源の扱い、AIツールの利用、訂正と更新に関する基本方針です。',
     sections: [
       { heading: '読者の判断を助ける', body: ['検索順位や話題性だけを目的にせず、読者がテーマを理解し、次の確認や行動へ進める記事を目指します。見出しでは内容を正確に表し、過度な断定や不安をあおる表現を避けます。'] },
       { heading: '情報源と事実確認', body: ['製品仕様、制度、数値、企業発表を扱う場合は、公式文書、一次資料、規格や公的機関の情報を優先します。参照した資料がある記事では、記事末尾にタイトルとリンクを表示できるデータ構造を使用します。'] },
@@ -225,17 +225,17 @@ const informationPages = [
     ]
   },
   {
-    path: authorPath, title: 'shinbun.news 編集部', kicker: 'AUTHOR',
-    description: 'shinbun.news編集部は、テクノロジーを業務の判断と実践につなげるための解説記事を企画・制作しています。',
+    path: authorPath, title: '新聞・ニュース編集部', kicker: 'AUTHOR',
+    description: '新聞・ニュース編集部は、テクノロジーを業務の判断と実践につなげるための解説記事を企画・制作しています。',
     sections: [
-      { heading: '編集部について', body: ['shinbun.news編集部は、AI、データ活用、セキュリティ、クラウド、製造DXを中心に、技術の仕組みと実務上の論点を整理します。個人の専門家を装うプロフィールは作らず、編集主体を組織として明示します。'] },
+      { heading: '編集部について', body: ['新聞・ニュース編集部は、AI、データ活用、セキュリティ、クラウド、製造DXを中心に、技術の仕組みと実務上の論点を整理します。個人の専門家を装うプロフィールは作らず、編集主体を組織として明示します。'] },
       { heading: '制作の考え方', body: ['読者が前提条件、リスク、確認事項を把握できる構成を重視します。詳しい制作プロセスとAI利用の考え方は<a href="/editorial-policy/">編集方針</a>をご確認ください。'] }
     ],
     schema: schemaGraph({ '@type': 'ProfilePage', '@id': `${absolute(authorPath)}#profile`, url: absolute(authorPath), name: editorialName, dateModified: withTimeZone(policyUpdatedAt), mainEntity: { '@type': 'Organization', '@id': `${absolute(authorPath)}#editorial-team`, name: editorialName, url: absolute(authorPath), parentOrganization: { '@id': `${siteUrl}/#organization` }, description: 'テクノロジーを業務の判断と実践につなげる解説記事を企画・制作する編集チームです。' } }, breadcrumbSchema([{ name: 'トップ', path: '/' }, { name: editorialName, path: authorPath }]))
   },
   {
     path: '/privacy/', title: 'プライバシーポリシー', kicker: 'PRIVACY',
-    description: 'shinbun.newsにおける広告、Cookie、アクセス情報、外部リンク、お問い合わせ情報の取り扱いについて説明します。',
+    description: '新聞・ニュースにおける広告、Cookie、アクセス情報、外部リンク、お問い合わせ情報の取り扱いについて説明します。',
     sections: [
       { heading: '広告とCookie', body: ['当サイトは、第三者配信の広告サービス「Google AdSense」を利用します。Googleなどの第三者配信事業者は、Cookieを使用して、利用者が当サイトや他のウェブサイトへ過去にアクセスした情報に基づく広告を配信する場合があります。広告で使用される情報と設定については、<a href="https://policies.google.com/technologies/ads?hl=ja" rel="noopener noreferrer">Googleの広告に関するポリシー</a>をご確認ください。'] },
       { heading: 'アクセス情報', body: ['ホスティング事業者や広告配信事業者が、セキュリティ、安定運用、広告配信のためにIPアドレス、端末情報、Cookie、リクエスト情報などを処理する場合があります。'] },

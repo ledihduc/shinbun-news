@@ -1,3 +1,5 @@
+import { editorialContent } from './editorial-content.js';
+
 export const categories = [
   { slug: 'ai', name: 'AI・生成AI', short: 'AI', description: '生成AIとAIエージェントを、実務で安全に生かすための知識と事例を届けます。' },
   { slug: 'dx', name: 'DX', short: 'DX', description: 'データとデジタル技術を、現場の変化と事業成果につなげるヒントを解説します。' },
@@ -6,9 +8,9 @@ export const categories = [
   { slug: 'manufacturing', name: '製造・ロボティクス', short: '製造', description: '製造現場のデータ活用と自動化を、働く人の視点から考えます。' }
 ];
 
-const commonAuthor = 'shinbun.news 編集部';
+const commonAuthor = '新聞・ニュース編集部';
 
-export const articles = [
+const baseArticles = [
   {
     id: 'a01', slug: 'ai-agent-data-and-permissions', title: 'AIエージェント導入前に整理したいデータと権限',
     description: 'AIエージェントを業務に組み込む前に、利用データの範囲、アクセス権限、判断の境界をどう設計するかを整理します。',
@@ -250,3 +252,15 @@ export const articles = [
     ]
   }
 ];
+
+export const articles = baseArticles.map((article) => {
+  const revision = editorialContent[article.slug];
+  if (!revision) throw new Error(`Missing editorial revision for article: ${article.slug}`);
+
+  return {
+    ...article,
+    ...revision,
+    updatedAt: '2026-11-08',
+    author: commonAuthor
+  };
+});
