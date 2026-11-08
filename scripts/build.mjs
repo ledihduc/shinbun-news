@@ -77,7 +77,7 @@ function header(active = '') {
 }
 
 function footer() {
-  return `<footer class="footer"><div class="shell footer-grid"><div><a class="brand brand--footer" href="/"><span class="brand-mark"></span><span class="brand-name">新聞・ニュース</span></a><p>テクノロジーを、ビジネスの実践へ。<br>働く人の判断に役立つ知識を、わかりやすく届けます。</p></div><nav aria-label="フッターメニュー">${categories.map((c) => `<a href="/category/${c.slug}/">${esc(c.name)}</a>`).join('')}<a href="/search/">記事を検索</a><a href="/editorial-policy/">編集方針</a><a href="${authorPath}">編集部</a><a href="/contact/">お問い合わせ</a><a href="/privacy/">プライバシー</a></nav></div><div class="shell footer-bottom"><span>© 2026 ${siteName}</span><span><a href="/editorial-policy/">編集方針と制作プロセス</a></span></div></footer>`;
+  return `<footer class="footer"><div class="shell footer-grid"><div><a class="brand brand--footer" href="/"><span class="brand-mark"></span><span class="brand-name">新聞・ニュース</span></a><p>テクノロジーを、ビジネスの実践へ。<br>働く人の判断に役立つ知識を、わかりやすく届けます。</p></div><nav aria-label="フッターメニュー">${categories.map((c) => `<a href="/category/${c.slug}/">${esc(c.name)}</a>`).join('')}<a href="/search/">記事を検索</a><a href="/editorial-policy/">編集方針</a><a href="${authorPath}">編集部</a><a href="/privacy/">プライバシー</a></nav></div><div class="shell footer-bottom"><span>© 2026 ${siteName}</span><span><a href="/editorial-policy/">編集方針と制作プロセス</a></span></div></footer>`;
 }
 
 function head({ title, description, path = '/', image = '/assets/data-center.jpg', schema = null, robots = defaultRobots, pageType = 'website', article = null }) {
@@ -211,7 +211,7 @@ const informationPages = [
       { heading: '読者の判断を助ける', body: ['検索順位や話題性だけを目的にせず、読者がテーマを理解し、次の確認や行動へ進める記事を目指します。見出しでは内容を正確に表し、過度な断定や不安をあおる表現を避けます。'] },
       { heading: '情報源と事実確認', body: ['製品仕様、制度、数値、企業発表を扱う場合は、公式文書、一次資料、規格や公的機関の情報を優先します。参照した資料がある記事では、記事末尾にタイトルとリンクを表示できるデータ構造を使用します。'] },
       { heading: 'AIツールの利用', body: ['調査補助、構成案、要約、表記確認などにAIツールを利用する場合があります。AIの出力をそのまま事実として扱わず、公開時には内容、出典、著作権、個人情報、誤解を招く表現を確認する運用を基本とします。'] },
-      { heading: '訂正と更新', body: ['公開後に重要な誤りが判明した場合は、内容を修正し、記事の更新日を記録します。お問い合わせは<a href="/contact/">お問い合わせページ</a>からお寄せください。'] }
+      { heading: '訂正と更新', body: ['公開後に重要な誤りが判明した場合は、内容を修正し、記事の更新日を記録します。記事へのご指摘は、公開リポジトリの<a href="https://github.com/ledihduc/shinbun-news/issues" rel="noopener noreferrer">GitHub Issues</a>からお寄せください。個人情報や機密情報は投稿しないでください。'] }
     ]
   },
   {
@@ -231,14 +231,6 @@ const informationPages = [
       { heading: 'アクセス情報', body: ['ホスティング事業者や広告配信事業者が、セキュリティ、安定運用、広告配信のためにIPアドレス、端末情報、Cookie、リクエスト情報などを処理する場合があります。'] },
       { heading: '外部サイトへのリンク', body: ['当サイトから移動した外部サイトでは、各運営者のプライバシーポリシーが適用されます。'] },
       { heading: 'お問い合わせ', body: ['お問い合わせ時に提供された情報は、内容の確認と返信のために利用します。本方針の重要な変更は、このページの更新日とともに公開します。'] }
-    ]
-  },
-  {
-    path: '/contact/', title: 'お問い合わせ', kicker: 'CONTACT',
-    description: '記事内容の訂正依頼、サイトに関するご意見、技術的な不具合についてのお問い合わせ窓口です。',
-    sections: [
-      { heading: '記事の訂正・更新', body: ['記事のURL、該当箇所、確認できる一次資料を添えてお知らせください。内容を確認し、必要に応じて記事を修正して更新日を記録します。'] },
-      { heading: 'お問い合わせ方法', body: ['現在は、公開リポジトリの<a href="https://github.com/ledihduc/shinbun-news/issues" rel="noopener noreferrer">GitHub Issues</a>で技術的な不具合と記事の指摘を受け付けています。個人情報や機密情報は投稿しないでください。'] }
     ]
   }
 ];

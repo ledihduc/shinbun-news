@@ -55,10 +55,11 @@ for (const article of articles) {
 const requiredOutputs = [
   'index.html', 'search/index.html', 'sitemap.xml', 'news-sitemap.xml', 'robots.txt', 'feed.xml', 'ads.txt', '404.html',
   'editorial-policy/index.html', 'authors/editorial-team/index.html',
-  'privacy/index.html', 'contact/index.html', 'assets/publisher-logo.svg'
+  'privacy/index.html', 'assets/publisher-logo.svg'
 ];
 for (const path of requiredOutputs) if (!await exists(join(dist, path))) errors.push(`missing build output: ${path}`);
 if (await exists(join(dist, 'about', 'index.html'))) errors.push('removed About page is still present in the build');
+if (await exists(join(dist, 'contact', 'index.html'))) errors.push('removed Contact page is still present in the build');
 
 async function walk(dir) {
   const output = [];
@@ -88,6 +89,7 @@ for (const file of htmlFiles) {
   const adsenseScripts = html.match(/<script async src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=ca-pub-8439241871121285" crossorigin="anonymous"><\/script>/g) || [];
   if (adsenseScripts.length !== 1) errors.push(`${page}: expected exactly one configured AdSense script`);
   if (html.includes('デザイン用のサンプル')) errors.push(`${page}: sample-content marker remains`);
+  if (html.includes('href="/contact/"')) errors.push(`${page}: removed Contact link remains`);
   if (title) titles.set(title, [...(titles.get(title) || []), page]);
   if (canonical) canonicals.set(canonical, [...(canonicals.get(canonical) || []), page]);
 }
@@ -134,7 +136,8 @@ const sitemap = await readFile(join(dist, 'sitemap.xml'), 'utf8').catch(() => ''
 if (sitemap.includes('/search/')) errors.push('sitemap: search page must not be included');
 if (!sitemap.includes('<lastmod>')) errors.push('sitemap: missing lastmod values');
 if (sitemap.includes('/about/')) errors.push('sitemap: removed About page must not be included');
-for (const path of ['/editorial-policy/', '/authors/editorial-team/', '/privacy/', '/contact/']) if (!sitemap.includes(path)) errors.push(`sitemap: missing ${path}`);
+if (sitemap.includes('/contact/')) errors.push('sitemap: removed Contact page must not be included');
+for (const path of ['/editorial-policy/', '/authors/editorial-team/', '/privacy/']) if (!sitemap.includes(path)) errors.push(`sitemap: missing ${path}`);
 
 const newsSitemap = await readFile(join(dist, 'news-sitemap.xml'), 'utf8').catch(() => '');
 if (!newsSitemap.includes('xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"')) errors.push('news sitemap: missing Google News namespace');
