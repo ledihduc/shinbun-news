@@ -13,13 +13,18 @@
   const menuButton = qs('.menu-button');
   const nav = qs('#site-nav');
   if (menuButton && nav) {
-    menuButton.addEventListener('click', () => {
-      const open = nav.classList.toggle('is-open');
+    const setMenuOpen = (open) => {
+      nav.classList.toggle('is-open', open);
       menuButton.setAttribute('aria-expanded', String(open));
       menuButton.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
       menuButton.innerHTML = open
-        ? '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"></path></svg>'
-        : '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>';
+        ? '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"></path></svg><span>閉じる</span>'
+        : '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><span>メニュー</span>';
+    };
+    menuButton.addEventListener('click', () => setMenuOpen(!nav.classList.contains('is-open')));
+    qsa('a', nav).forEach((link) => link.addEventListener('click', () => setMenuOpen(false)));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setMenuOpen(false);
     });
   }
 
@@ -88,8 +93,27 @@
     const results = qs('[data-search-results]');
     const empty = qs('[data-search-empty]');
     const more = qs('[data-search-more]');
+    const filterOpen = qs('[data-filter-open]');
+    const filterClose = qs('[data-filter-close]');
+    const filterScrim = qs('[data-filter-scrim]');
     let current = [];
     let visibleCount = 6;
+
+    const setFilterDrawer = (open) => {
+      filters.classList.toggle('is-open', open);
+      filterOpen?.setAttribute('aria-expanded', String(open));
+      if (filterScrim) filterScrim.hidden = !open;
+      document.body.classList.toggle('filter-drawer-open', open);
+    };
+    filterOpen?.addEventListener('click', () => setFilterDrawer(true));
+    filterClose?.addEventListener('click', () => setFilterDrawer(false));
+    filterScrim?.addEventListener('click', () => setFilterDrawer(false));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setFilterDrawer(false);
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 980) setFilterDrawer(false);
+    });
 
     const normalize = (value) => String(value || '').toLocaleLowerCase('ja-JP').normalize('NFKC');
     const card = (article) => `<article class="list-item search-result"><a class="list-thumb" href="/articles/${article.slug}/"><img src="${article.image}" alt="" width="320" height="210" loading="lazy"></a><div><div class="eyebrow"><a href="/category/${article.category}/">${article.categoryName}</a><span>・${article.type}</span></div><h3><a href="/articles/${article.slug}/">${article.title}</a></h3><p>${article.description}</p><div class="meta"><time datetime="${article.publishedAt}">${article.publishedAt.replaceAll('-', '.')}</time><span>${article.readTime}分で読める</span></div></div></article>`;

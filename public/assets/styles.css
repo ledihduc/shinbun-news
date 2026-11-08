@@ -545,3 +545,62 @@ body { color: #172033; font-family: var(--sans); line-height: 1.65; }
   .article-header h1 { font-size: 31px; }
   .footer { border-top-width: 5px; }
 }
+
+/* Responsive navigation and search-filter stability fixes. */
+html, body { max-width: 100%; overflow-x: clip; }
+.site-header { padding-bottom: 0; border-bottom: 1px solid var(--line); }
+.header-main { min-width: 0; }
+.brand { min-width: 0; max-width: 100%; }
+.brand-name, .brand-jp { white-space: nowrap; }
+.nav { position: absolute; top: 100%; left: 0; right: auto; z-index: 60; width: min(390px, calc(100vw - 24px)); max-height: calc(100vh - 80px); margin: 0; overflow-y: auto; border-radius: 0; background: white; box-shadow: 0 18px 42px rgba(13, 24, 40, .18); transform: translateX(-104%); visibility: hidden; opacity: 0; transition: transform .2s ease, opacity .2s ease, visibility .2s ease; }
+.nav.is-open { transform: translateX(0); visibility: visible; opacity: 1; }
+.nav-inner { display: grid; width: 100%; min-height: auto; gap: 0; padding: 10px 24px 20px; overflow: visible; }
+.nav a, .nav a:first-child, .nav .nav-keyword { justify-content: flex-start; min-height: 48px; margin: 0; padding: 0 4px; border-right: 0; border-bottom: 1px solid var(--line); color: var(--ink); font-size: 14px; }
+.nav a:hover, .nav a[aria-current="page"] { color: var(--blue); opacity: 1; }
+.nav .nav-keyword { display: flex; white-space: normal; }
+
+.search-layout { grid-template-columns: minmax(270px, 300px) minmax(0, 1fr); align-items: start; gap: clamp(30px, 4vw, 52px); }
+.search-filters { position: sticky; top: 20px; min-width: 0; padding: 22px; }
+.filter-heading-actions, .results-head-actions { display: flex; align-items: center; gap: 14px; }
+.filter-close, .filter-drawer-trigger { display: none; }
+.filter-group { grid-template-columns: 1fr; gap: 9px; }
+.filter-label { padding-top: 0; }
+.filter-options { min-width: 0; }
+.filter-options button { flex: 0 0 auto; max-width: 100%; white-space: nowrap; word-break: keep-all; writing-mode: horizontal-tb; }
+.search-results, .search-result > div { min-width: 0; }
+.search-result h3, .search-result p { overflow-wrap: anywhere; }
+.filter-scrim { display: none; }
+
+@media (max-width: 1050px) {
+  .header-main { grid-template-columns: 56px minmax(0, 1fr) 56px; }
+  .header-discovery { min-width: 0; }
+  .header-search-form { display: none; }
+  .header-actions { justify-self: end; }
+  .header-quick-link { display: none; }
+  .search-link { display: inline-flex; width: 44px; justify-content: center; padding: 0; }
+  .search-link span { display: none; }
+}
+
+@media (max-width: 980px) {
+  .search-layout { grid-template-columns: minmax(0, 1fr); }
+  .search-filters { position: fixed; inset: 0 auto 0 0; z-index: 120; width: min(360px, calc(100vw - 44px)); max-height: none; padding: 22px; overflow-y: auto; box-shadow: 18px 0 45px rgba(13, 24, 40, .2); transform: translateX(-105%); visibility: hidden; transition: transform .2s ease, visibility .2s ease; }
+  .search-filters.is-open { transform: translateX(0); visibility: visible; }
+  .filter-close { display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 1px solid var(--line); background: white; }
+  .filter-close svg, .filter-drawer-trigger svg { width: 19px; height: 19px; }
+  .filter-drawer-trigger { display: inline-flex; align-items: center; gap: 7px; min-height: 38px; padding: 7px 12px; border: 1px solid var(--blue); background: white; color: var(--blue); font-size: 12px; font-weight: 800; }
+  .filter-scrim:not([hidden]) { position: fixed; inset: 0; z-index: 110; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: rgba(13, 24, 40, .48); }
+  body.filter-drawer-open { overflow: hidden; }
+  .results-head { align-items: center; gap: 16px; }
+}
+
+@media (max-width: 740px) {
+  .results-head { align-items: flex-start; }
+  .results-head h2 { max-width: 48vw; overflow-wrap: anywhere; }
+  .results-head-actions { flex-direction: column-reverse; align-items: flex-end; gap: 7px; }
+  .search-result { grid-template-columns: minmax(96px, 118px) minmax(0, 1fr); }
+}
+
+@media (max-width: 400px) {
+  .brand { font-size: 18px; }
+  .brand-jp { display: none; }
+}
