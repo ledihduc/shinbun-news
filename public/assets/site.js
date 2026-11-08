@@ -99,10 +99,18 @@
       more.hidden = visibleCount >= current.length;
       qs('[data-result-count]').textContent = `${current.length}件`;
     };
+    const selectedFilter = (name) => qs(`[data-search-filter="${name}"][aria-pressed="true"]`, filters)?.dataset.filterValue || '';
+    const selectFilter = (name, value) => {
+      qsa(`[data-search-filter="${name}"]`, filters).forEach((button) => {
+        const active = button.dataset.filterValue === value;
+        button.setAttribute('aria-pressed', String(active));
+        button.classList.toggle('is-active', active);
+      });
+    };
     const run = (push = false) => {
-      const category = qs('[name="category"]', filters).value;
-      const type = qs('[name="type"]', filters).value;
-      const period = qs('[name="period"]', filters).value;
+      const category = selectedFilter('category');
+      const type = selectedFilter('type');
+      const period = selectedFilter('period');
       const query = input.value.trim();
       const needle = normalize(query);
       const now = new Date('2026-10-25T00:00:00+09:00');
@@ -125,15 +133,18 @@
     const syncFromUrl = () => {
       const params = new URLSearchParams(location.search);
       input.value = params.get('q') || '';
-      qs('[name="category"]', filters).value = params.get('category') || '';
-      qs('[name="type"]', filters).value = params.get('type') || '';
-      qs('[name="period"]', filters).value = params.get('period') || '';
+      selectFilter('category', params.get('category') || '');
+      selectFilter('type', params.get('type') || '');
+      selectFilter('period', params.get('period') || '');
       run(false);
     };
     form.addEventListener('submit', (event) => { event.preventDefault(); run(true); });
-    qsa('select', filters).forEach((select) => select.addEventListener('change', () => run(true)));
+    qsa('[data-search-filter]', filters).forEach((button) => button.addEventListener('click', () => {
+      selectFilter(button.dataset.searchFilter, button.dataset.filterValue);
+      run(true);
+    }));
     qs('[data-clear-filters]').addEventListener('click', () => {
-      qsa('select', filters).forEach((select) => { select.value = ''; });
+      ['category', 'type', 'period'].forEach((name) => selectFilter(name, ''));
       input.value = '';
       run(true);
     });
