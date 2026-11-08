@@ -4,7 +4,7 @@ import { articles as localArticles, categories } from '../src/articles.js';
 
 const root = new URL('..', import.meta.url).pathname;
 const out = join(root, 'dist');
-const siteUrl = (process.env.SITE_URL || 'https://tech-insight-jp-20261025.ducswan36.chatgpt.site').replace(/\/$/, '');
+const siteUrl = (process.env.SITE_URL || 'https://shinbun.news').replace(/\/$/, '');
 const siteName = '新聞・ニュース';
 const editorialName = '新聞・ニュース編集部';
 const assetVersion = '20261108-5';
