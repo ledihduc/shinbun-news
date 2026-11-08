@@ -82,6 +82,15 @@ for (const [canonical, pages] of canonicals) if (pages.length > 1) errors.push(`
 
 const home = await readFile(join(dist, 'index.html'), 'utf8').catch(() => '');
 if (!home.includes('"@type":"WebSite"') || !home.includes('"@type":"Organization"')) errors.push('home: missing WebSite or Organization JSON-LD');
+if (!home.includes('data-ad-slot="3015789884"') || !home.includes('data-ad-layout-key="-ha+d-1s-52+g5"')) errors.push('home: missing configured native in-feed ad');
+
+for (const category of categories) {
+  const html = await readFile(join(dist, 'category', category.slug, 'index.html'), 'utf8').catch(() => '');
+  if (!html.includes('data-ad-slot="3015789884"')) errors.push(`${category.slug}: missing configured native in-feed ad`);
+}
+
+const siteScript = await readFile(join(dist, 'assets', 'site.js'), 'utf8').catch(() => '');
+if (!siteScript.includes("const adsenseFeedSlot = '3015789884'")) errors.push('site.js: missing dynamic search in-feed ad slot');
 
 for (const article of articles) {
   const html = await readFile(join(dist, 'articles', article.slug, 'index.html'), 'utf8').catch(() => '');

@@ -7,11 +7,13 @@ const out = join(root, 'dist');
 const siteUrl = (process.env.SITE_URL || 'https://tech-insight-jp-20261025.ducswan36.chatgpt.site').replace(/\/$/, '');
 const siteName = 'shinbun.news　新聞・NEWS';
 const editorialName = 'shinbun.news 編集部';
-const assetVersion = '20261108-3';
+const assetVersion = '20261108-4';
 const policyUpdatedAt = '2026-11-08';
 const authorPath = '/authors/editorial-team/';
 const defaultRobots = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
 const adsenseClient = 'ca-pub-8439241871121285';
+const adsenseFeedSlot = '3015789884';
+const adsenseFeedLayoutKey = '-ha+d-1s-52+g5';
 
 async function loadArticles() {
   if (!process.env.CONTENT_API_URL) return localArticles;
@@ -105,6 +107,16 @@ function listItem(article) {
   return `<article class="list-item" data-article data-category="${article.category}" data-type="${article.type}" data-date="${article.publishedAt}"><a class="list-thumb" href="/articles/${article.slug}/">${responsiveImage(article.image, '', 'loading="lazy" width="320" height="180"', article.images)}</a><div><div class="eyebrow"><a href="/category/${category.slug}/">${esc(category.name)}</a><span>・${esc(article.type)}</span></div><h3><a href="/articles/${article.slug}/">${esc(article.title)}</a></h3><p>${esc(article.description)}</p>${meta(article)}</div></article>`;
 }
 
+function inFeedAd() {
+  return `<div class="feed-ad" data-feed-ad aria-label="広告"><span class="feed-ad-label">広告</span><ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="${adsenseFeedLayoutKey}" data-ad-client="${adsenseClient}" data-ad-slot="${adsenseFeedSlot}"></ins></div>`;
+}
+
+function renderFeed(items, renderer, insertAfter = 3) {
+  const output = items.map(renderer);
+  if (insertAfter > 0 && output.length > insertAfter) output.splice(insertAfter, 0, inFeedAd());
+  return output.join('');
+}
+
 function ranking(items) {
   return `<section class="ranking panel"><h2>よく読まれている記事</h2><ol>${items.map((article, i) => `<li><span>${String(i + 1).padStart(2, '0')}</span><a href="/articles/${article.slug}/">${esc(article.title)}</a></li>`).join('')}</ol></section>`;
 }
@@ -122,7 +134,7 @@ function homePage() {
   );
   const content = `<section class="topic-strip"><div class="shell"><strong>注目のキーワード</strong><div>${['生成AI', 'AIエージェント', 'ゼロトラスト', 'クラウド', '業務改革'].map((t) => `<a href="/search/?q=${encodeURIComponent(t)}">${t}</a>`).join('')}</div></div></section>
   <section class="shell section must-read"><div class="xtech-section-head"><div><h1>今日の必読</h1><span>Today's Picks</span></div></div><div class="must-read-layout"><div class="must-read-main"><article class="lead-news"><div class="lead-news-copy"><div class="eyebrow"><a href="/category/${categoryFor(lead).slug}/">${esc(categoryFor(lead).name)}</a><span>・${esc(lead.type)}</span></div><h2><a href="/articles/${lead.slug}/">${esc(lead.title)}</a></h2><p>${esc(lead.description)}</p>${meta(lead)}</div><a class="lead-news-image" href="/articles/${lead.slug}/">${responsiveImage(lead.image, '', 'width="720" height="405" fetchpriority="high"', lead.images)}</a></article><section class="related-ribbon"><h2>関連記事</h2><div>${leadRelated.map((item) => `<a href="/articles/${item.slug}/">${esc(item.title)}</a>`).join('')}</div></section><div class="must-read-grid">${[second, third, fourth].map((item) => articleCard(item, 'article-card--must')).join('')}</div></div><aside class="home-sidebar"><section class="notice-panel panel"><h2>編集部からのお知らせ</h2><a href="/editorial-policy/">編集方針と制作プロセス</a><a href="/articles/primary-sources-for-tech-news/">技術ニュースを読み解く、一次情報の確かめ方</a><a href="/articles/data-governance-first-role/">データ活用の判断軸を、実務から考える</a></section><div id="ranking">${ranking(popular)}</div></aside></div></section>
-  <section class="shell section home-content"><div class="latest"><div class="section-head section-head--line"><h2>新着記事 <small>Latest Articles</small></h2><a href="/search/">新着記事の一覧 ${icon('arrow')}</a></div><div id="latest-list">${latest.map(listItem).join('')}</div><button class="button button--outline" type="button" data-load-more data-target="#latest-list" data-step="3">もっと見る</button></div><aside><div class="editor-note panel"><span>SHINBUN.NEWS EDITORIAL</span><h2>テクノロジーを、ビジネスの実践へ。</h2><p>話題性だけでなく、仕組みと実務への影響を丁寧に読み解きます。</p><a href="/search/">記事を検索する ${icon('arrow')}</a></div><div class="keyword-panel panel"><h2>注目のテーマ</h2><div>${['生成AI','DX','セキュリティ','クラウド','ロボティクス'].map((t) => `<a href="/search/?q=${encodeURIComponent(t)}">${t}</a>`).join('')}</div></div></aside></section>
+  <section class="shell section home-content"><div class="latest"><div class="section-head section-head--line"><h2>新着記事 <small>Latest Articles</small></h2><a href="/search/">新着記事の一覧 ${icon('arrow')}</a></div><div id="latest-list">${renderFeed(latest, listItem, 3)}</div><button class="button button--outline" type="button" data-load-more data-target="#latest-list" data-step="3">もっと見る</button></div><aside><div class="editor-note panel"><span>SHINBUN.NEWS EDITORIAL</span><h2>テクノロジーを、ビジネスの実践へ。</h2><p>話題性だけでなく、仕組みと実務への影響を丁寧に読み解きます。</p><a href="/search/">記事を検索する ${icon('arrow')}</a></div><div class="keyword-panel panel"><h2>注目のテーマ</h2><div>${['生成AI','DX','セキュリティ','クラウド','ロボティクス'].map((t) => `<a href="/search/?q=${encodeURIComponent(t)}">${t}</a>`).join('')}</div></div></aside></section>
   <section class="category-bands">${groups.map(({ category, items }, groupIndex) => `<div class="shell category-band"><div class="category-band-head"><div><span>0${groupIndex + 1}</span><h2>${esc(category.name)}</h2><p>${esc(category.description)}</p></div><a href="/category/${category.slug}/">すべて見る ${icon('arrow')}</a></div><div class="card-grid">${items.map((a) => articleCard(a)).join('')}</div></div>`).join('')}</section>`;
   return page({ title: siteName, description: 'AI、DX、セキュリティ、クラウド、製造・ロボティクスの知識を、実務の判断と行動につなげる日本語テクノロジーメディアです。', path: '/', schema, content, bodyClass: 'home-page' });
 }
@@ -143,7 +155,7 @@ function categoryPage(category) {
   <section class="shell category-hero"><div><span class="section-kicker">CATEGORY</span><h1>${esc(category.name)}</h1><p>${esc(category.description)}</p></div><div class="category-index">${String(categories.findIndex((c) => c.slug === category.slug) + 1).padStart(2, '0')}</div></section>
   <section class="shell category-feature">${articleCard(feature, 'article-card--feature')}</section>
   <div class="shell filter-row" data-filter-root><div class="filter-tabs" role="group" aria-label="記事タイプ"><button class="is-active" data-filter-type="all">すべて</button>${['ニュース', '技術解説', '導入事例'].map((type) => `<button data-filter-type="${type}">${type}</button>`).join('')}</div><label>並び順<select data-sort><option value="new">新しい順</option><option value="old">古い順</option></select></label></div>
-  <section class="shell category-layout"><div><div class="category-card-grid" id="category-list">${rest.map((a) => articleCard(a)).join('')}</div><div class="empty-state" data-empty hidden><h2>記事が見つかりませんでした。</h2><p>別の種類を選んでください。</p></div><button class="button button--outline" type="button" data-load-more data-target="#category-list" data-step="4">もっと見る</button></div><aside><div class="panel keyword-panel"><h2>この分野のキーワード</h2><div>${[...new Set(items.flatMap((a) => a.tags))].slice(0, 7).map((t) => `<a href="/search/?q=${encodeURIComponent(t)}">${esc(t)}</a>`).join('')}</div></div>${ranking(popular)}</aside></section>`;
+  <section class="shell category-layout"><div><div class="category-card-grid" id="category-list">${renderFeed(rest, articleCard, Math.min(2, rest.length - 1))}</div><div class="empty-state" data-empty hidden><h2>記事が見つかりませんでした。</h2><p>別の種類を選んでください。</p></div><button class="button button--outline" type="button" data-load-more data-target="#category-list" data-step="4">もっと見る</button></div><aside><div class="panel keyword-panel"><h2>この分野のキーワード</h2><div>${[...new Set(items.flatMap((a) => a.tags))].slice(0, 7).map((t) => `<a href="/search/?q=${encodeURIComponent(t)}">${esc(t)}</a>`).join('')}</div></div>${ranking(popular)}</aside></section>`;
   return page({ title: category.name, description, path, active: category.slug, image: feature.image, schema, content, bodyClass: 'category-page' });
 }
 

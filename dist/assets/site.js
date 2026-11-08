@@ -2,6 +2,20 @@
   const qs = (selector, root = document) => root.querySelector(selector);
   const qsa = (selector, root = document) => [...root.querySelectorAll(selector)];
   const escapeHTML = (value = '') => String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
+  const adsenseClient = 'ca-pub-8439241871121285';
+  const adsenseFeedSlot = '3015789884';
+  const adsenseFeedLayoutKey = '-ha+d-1s-52+g5';
+  const feedAdMarkup = () => `<div class="feed-ad" data-feed-ad aria-label="広告"><span class="feed-ad-label">広告</span><ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="${adsenseFeedLayoutKey}" data-ad-client="${adsenseClient}" data-ad-slot="${adsenseFeedSlot}"></ins></div>`;
+  const initializeAds = (root = document) => {
+    qsa('.adsbygoogle:not([data-ad-initialized])', root).forEach((element) => {
+      element.dataset.adInitialized = 'true';
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch {
+        delete element.dataset.adInitialized;
+      }
+    });
+  };
   const toast = (message) => {
     const element = qs('#toast');
     if (!element) return;
@@ -12,6 +26,7 @@
   };
 
   const menuButton = qs('.menu-button');
+  initializeAds();
   const nav = qs('#site-nav');
   if (menuButton && nav) {
     const setMenuOpen = (open) => {
@@ -67,6 +82,7 @@
     const sort = qs('[data-sort]', filterRoot);
     const apply = () => {
       const items = qsa('[data-article]', categoryList);
+      const feedAd = qs('[data-feed-ad]', categoryList);
       items.sort((a, b) => sort.value === 'old' ? a.dataset.date.localeCompare(b.dataset.date) : b.dataset.date.localeCompare(a.dataset.date));
       items.forEach((item) => {
         item.dataset.filteredOut = activeType !== 'all' && item.dataset.type !== activeType ? 'true' : '';
@@ -74,6 +90,10 @@
         categoryList.append(item);
       });
       const visible = items.filter((item) => !item.dataset.filteredOut);
+      if (feedAd) {
+        feedAd.hidden = visible.length <= 1;
+        if (visible.length > 1) visible[Math.min(1, visible.length - 2)].after(feedAd);
+      }
       qs('[data-empty]').hidden = visible.length > 0;
       qs('[data-load-more]')?._update?.();
     };
@@ -122,7 +142,10 @@
       return `<article class="list-item search-result"><a class="list-thumb" href="/articles/${article.slug}/"><picture><source srcset="${escapeHTML(webp)}" type="image/webp"><img src="${escapeHTML(article.image)}" alt="" width="320" height="180" loading="lazy"></picture></a><div><div class="eyebrow"><a href="/category/${article.category}/">${escapeHTML(article.categoryName)}</a><span>・${escapeHTML(article.type)}</span></div><h3><a href="/articles/${article.slug}/">${escapeHTML(article.title)}</a></h3><p>${escapeHTML(article.description)}</p><div class="meta"><time datetime="${escapeHTML(article.publishedAt)}">${escapeHTML(article.publishedAt.replaceAll('-', '.'))}</time><span>${Number(article.readTime)}分で読める</span></div></div></article>`;
     };
     const render = () => {
-      results.innerHTML = current.slice(0, visibleCount).map(card).join('');
+      const blocks = current.slice(0, visibleCount).map(card);
+      if (blocks.length > 3) blocks.splice(3, 0, feedAdMarkup());
+      results.innerHTML = blocks.join('');
+      initializeAds(results);
       empty.hidden = current.length > 0;
       more.hidden = visibleCount >= current.length;
       qs('[data-result-count]').textContent = `${current.length}件`;

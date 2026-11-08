@@ -76,7 +76,7 @@ This normally updates the live site in seconds to a few minutes while preserving
 
 Every generated HTML page loads the asynchronous AdSense library for publisher `ca-pub-8439241871121285`. The build also emits `dist/ads.txt` with the matching Google seller declaration. The privacy page discloses Google AdSense and cookie usage.
 
-This installs the site-level code required for AdSense and Auto ads. Manual ad units still require their own `data-ad-slot` identifiers. Google must be able to access the public production domain before it can review the site or verify `ads.txt`.
+This installs the site-level code required for AdSense and Auto ads. Native in-feed ad unit `3015789884` is inserted into the homepage article feed, category feeds, and dynamically rendered search results. The AdSense loader remains global and is emitted exactly once per HTML page. Google must be able to access the public production domain before it can review the site or verify `ads.txt`.
 
 ## Deployment
 
