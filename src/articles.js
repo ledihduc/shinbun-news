@@ -6,7 +6,8 @@ export const categories = [
   { slug: 'security', name: 'セキュリティ', short: 'セキュリティ', description: '変化する脅威に備え、組織と情報を守るための考え方を基礎から整理します。' },
   { slug: 'cloud', name: 'クラウド', short: 'クラウド', description: 'クラウドの設計、運用、コスト最適化を、実践的な視点で読み解きます。' },
   { slug: 'manufacturing', name: '製造・ロボティクス', short: '製造', description: '製造現場のデータ活用と自動化を、働く人の視点から考えます。' },
-  { slug: 'business', name: '経済・ビジネス', short: '経済', description: '企業戦略、雇用、市場、消費の変化を、一次情報とデータから読み解きます。' }
+  { slug: 'business', name: '経済・ビジネス', short: '経済', description: '企業戦略、雇用、市場、消費の変化を、一次情報とデータから読み解きます。' },
+  { slug: 'society', name: '社会・暮らし', short: '社会', description: '教育、働き方、防災、旅、住まいなど、暮らしに関わる変化を公表資料から読み解きます。' }
 ];
 
 const commonAuthor = '新聞・ニュース編集部';
@@ -310,6 +311,107 @@ const baseArticles = [
       { heading: '定番メニューでチキンを強化', body: ['マクドナルドとKFCは相次いで新しいチキン商品を全国展開しました。', '限定商品の話題づくりとは異なり、継続販売する定番の強化です。'] },
       { heading: '同じ鶏もも肉でも設計は異なる', body: ['衣、ソース、調理方法、品ぞろえで各社の特徴を出しています。', '消費者は味だけでなく食べ応えや選びやすさも比較します。'] },
       { heading: '競争は昼食と軽食へ広がる', body: ['セット、単品、サイドメニューを組み合わせて利用場面を増やします。', '定番化の成否は再購入と店舗運用の安定性に左右されます。'] }
+    ]
+  },
+  {
+    id: 'a26', slug: 'alliances-defense-cost-sharing', title: '軍事同盟は防衛コストをどう分けるのか',
+    description: 'NATOとSIPRIの公表資料から、集団防衛が抑止力と負担分担を生む仕組み、その限界を整理します。',
+    category: 'security', type: 'ニュース解説', tags: ['軍事同盟', 'NATO', '防衛費'], image: '/assets/security-ops.jpg',
+    publishedAt: '2026-11-08', author: commonAuthor, readTime: 10, featured: true, popular: 6,
+    points: ['同盟は装備、情報、補給を共同で使う枠組みになる', '負担分担は支出額だけでなく能力と即応性で測る', '大国にも同盟を維持する政治・経済コストがある'],
+    sections: [
+      { heading: '集団防衛が持つ基本的な仕組み', body: ['同盟国への攻撃を自国への攻撃とみなす約束は、相手の計算を難しくします。', '一方で支援の内容は条約と各国の判断に左右され、約束だけで能力が生まれるわけではありません。'] },
+      { heading: '共同化できる費用と各国が負う費用', body: ['早期警戒、通信、演習、標準化は共同化の効果が出やすい分野です。', '兵員、装備、備蓄、輸送力は各国が継続して整える必要があります。'] },
+      { heading: '負担分担を支出比率だけで見ない', body: ['GDP比は比較しやすい一方、調達効率や即応性をそのまま示しません。', '不足する能力を埋められるかという成果の確認が欠かせません。'] }
+    ]
+  },
+  {
+    id: 'a27', slug: 'british-boarding-schools-japan', title: '英国系ボーディングスクール、日本で広がる選択肢',
+    description: '年1000万円を超える学費の学校もある英国系ボーディングスクールについて、需要と課題を公式情報から整理します。',
+    category: 'society', type: 'ニュース解説', tags: ['国際教育', 'ボーディングスクール', '学費'], image: '/assets/british-boarding-schools-japan-16x9.webp',
+    images: { wide: '/assets/british-boarding-schools-japan-16x9.webp', landscape: '/assets/british-boarding-schools-japan-4x3.webp', square: '/assets/british-boarding-schools-japan-1x1.webp' },
+    publishedAt: '2026-11-08', author: commonAuthor, readTime: 10, featured: true, popular: 7,
+    points: ['授業料には寮費を含む場合がある', '海外校の名称だけで教育内容は判断できない', '地域との接点と卒業後の進路確認が重要になる'],
+    sections: [
+      { heading: '日本に広がる全寮制の国際教育', body: ['英国系学校の日本進出により、海外へ移住せず全寮制教育を選べるようになりました。', '国内外の家庭が比較する市場となり、学校ごとの対象年齢や課程は異なります。'] },
+      { heading: '学費は何を含むのか', body: ['授業料、寮費、食費、課外活動、旅行費を分けて確認します。', '入学金や保証金を含めた総額で家計負担を判断する必要があります。'] },
+      { heading: '学校名より認定と進路を見る', body: ['認定、査察、教員体制、卒業資格を公式資料で確かめます。', '日本の大学や海外大学へ進む際の出願条件も早めに確認します。'] }
+    ]
+  },
+  {
+    id: 'a28', slug: 'credit-saison-india-adb-financing', title: 'クレディセゾン、インドで5億ドル調達',
+    description: 'ADBを含む6行が参加するCredit Saison Indiaの大型協調融資について、資金使途と成長戦略を読み解きます。',
+    category: 'business', type: 'ニュース', tags: ['クレディセゾン', 'ADB', 'インド金融'], image: '/assets/analytics-team.jpg',
+    publishedAt: '2026-11-08', author: commonAuthor, readTime: 9, popular: 8,
+    points: ['インド子会社として過去最大の5億ドルを調達する', 'ADBが初めて協調融資へ参加する', '中小零細企業と個人への金融アクセス拡大が焦点になる'],
+    sections: [
+      { heading: '過去最大の対外商業借り入れ', body: ['Credit Saison Indiaは多通貨の協調融資契約を結びました。', '国際金融機関と民間銀行を組み合わせた資金調達です。'] },
+      { heading: '成長を支える資金と審査基準', body: ['融資拡大には資本だけでなく審査と回収の品質が必要です。', 'ADBの参加は環境・社会面の管理強化にもつながります。'] },
+      { heading: '次に確認する経営指標', body: ['債権残高だけでなく延滞率、調達費用、利益を確認します。', '他地域への展開はインドの経験を再現できるかが焦点です。'] }
+    ]
+  },
+  {
+    id: 'a29', slug: 'berkshire-record-share-buyback-2026', title: 'バークシャー、自社株買い過去最大規模',
+    description: '2026年7〜9月期に約96億ドルを投じたバークシャーの自社株買いを、手元資金と投資判断から読み解きます。',
+    category: 'business', type: 'ニュース解説', tags: ['Berkshire Hathaway', '自社株買い', '手元資金'], image: '/assets/cloud-team.jpg',
+    publishedAt: '2026-11-08', author: commonAuthor, readTime: 9, popular: 9,
+    points: ['7〜9月期の取得額は約96億ドルだった', '9カ月累計の取得額は144億ドルに達した', '買い戻しは割安判断と十分な流動性が条件になる'],
+    sections: [
+      { heading: '7〜9月に買い戻しを拡大', body: ['四半期報告書は月別の取得株数と平均価格を開示しています。', '株主資本の自己株式増加額から四半期の規模を確認できます。'] },
+      { heading: '自社株買いの判断基準', body: ['経営陣が本源的価値を下回ると判断する価格で取得します。', '現金等が300億ドルを下回る買い戻しは行わない方針です。'] },
+      { heading: '大きな現金余力をどう読むか', body: ['現金は投資機会と保険事業の安全性を支えます。', '自社株買いだけで将来の投資方針を断定することはできません。'] }
+    ]
+  },
+  {
+    id: 'a30', slug: 'public-sector-engineer-shortage-japan', title: '自治体の技術職不足、インフラ維持をどう支えるか',
+    description: '土木・建築の技術職員が少ない自治体の実態と、中途採用、共同採用、広域支援による人材確保策を整理します。',
+    category: 'society', type: 'ニュース解説', tags: ['地方自治体', '技術職', 'インフラ'], image: '/assets/public-engineer-shortage-16x9.webp',
+    images: { wide: '/assets/public-engineer-shortage-16x9.webp', landscape: '/assets/public-engineer-shortage-4x3.webp', square: '/assets/public-engineer-shortage-1x1.webp' },
+    publishedAt: '2026-11-08', author: commonAuthor, readTime: 10, popular: 10,
+    points: ['技術職員5人以下の市区町村が約半数を占める', '採用数だけでなく経験の継承が課題になる', '都道府県と市町村の共同確保が現実的な選択肢になる'],
+    sections: [
+      { heading: '少人数でインフラを支える自治体', body: ['道路、橋、水道、公共施設の維持には継続した技術判断が必要です。', '担当者が少ない地域では発注管理と災害対応が同じ人へ集中します。'] },
+      { heading: '中途採用を増やすだけでは足りない', body: ['民間経験者が力を発揮できる職務と待遇を明示します。', '採用後の権限、研修、資格支援まで設計する必要があります。'] },
+      { heading: '共同採用と広域支援を組み合わせる', body: ['単独自治体で確保が難しい専門性は広域で共有できます。', '外部委託を使う場合も発注者側の判断能力は残さなければなりません。'] }
+    ]
+  },
+  {
+    id: 'a31', slug: 'kai-senior-onsen-subscription', title: '70歳以上限定「界の定期券」、12泊の旅を商品化',
+    description: '星野リゾートの温泉旅館サブスクリプションが、シニアの旅行需要と宿泊施設の稼働をどう結ぶのかを解説します。',
+    category: 'society', type: 'ニュース解説', tags: ['シニア旅行', '温泉旅館', 'サブスクリプション'], image: '/assets/senior-onsen-subscription-16x9.webp',
+    images: { wide: '/assets/senior-onsen-subscription-16x9.webp', landscape: '/assets/senior-onsen-subscription-4x3.webp', square: '/assets/senior-onsen-subscription-1x1.webp' },
+    publishedAt: '2026-11-08', author: commonAuthor, readTime: 9,
+    points: ['70歳以上を対象に年間12泊を販売する', '23施設から選び長期滞在にも使える', '定額化は旅行の計画負担を下げる狙いがある'],
+    sections: [
+      { heading: '宿泊を一泊ずつ買わない仕組み', body: ['年間の宿泊回数を先にまとめて購入する商品です。', '利用者は対象施設と期間の条件内で旅程を組みます。'] },
+      { heading: '価格だけでは測れない利用価値', body: ['食事込みの料金と予約方法、同行者条件を確認します。', '何泊使えるかではなく実際に予約できる日程が重要です。'] },
+      { heading: 'シニア旅行を継続需要へ変える', body: ['定期的な旅行は生活の目標と外出機会を作ります。', '事業者には需要平準化と再訪を促す効果が期待されます。'] }
+    ]
+  },
+  {
+    id: 'a32', slug: 'shizuoka-aichi-earthquake-november-2026', title: '静岡県西部でM5.7、愛知県知多市で震度5強',
+    description: '11月8日未明に発生した地震について、気象庁が確認した震源、震度、津波、今後の注意点をまとめます。',
+    category: 'society', type: 'ニュース', tags: ['地震', '愛知県', '静岡県'], image: '/assets/shizuoka-aichi-earthquake-16x9.webp',
+    images: { wide: '/assets/shizuoka-aichi-earthquake-16x9.webp', landscape: '/assets/shizuoka-aichi-earthquake-4x3.webp', square: '/assets/shizuoka-aichi-earthquake-1x1.webp' },
+    publishedAt: '2026-11-08', author: commonAuthor, readTime: 7, featured: true,
+    points: ['震源は静岡県西部、暫定マグニチュード5.7', '愛知県知多市で最大震度5強を観測した', '津波の心配はなく、1週間程度は同程度の揺れに注意する'],
+    sections: [
+      { heading: '8日午前1時4分に発生', body: ['気象庁が発表した暫定値を基に地震の概要を整理します。', '震源の深さは41キロで、広い範囲で揺れを観測しました。'] },
+      { heading: '津波の心配はない', body: ['気象庁はこの地震による津波の心配はないとしています。', '落石や崖崩れの危険性が高まる地域では雨にも注意が必要です。'] },
+      { heading: '今後1週間の備え', body: ['特に2〜3日程度は規模の大きい地震が起きる場合があります。', '家具、避難経路、公式情報の入手先を確認します。'] }
+    ]
+  },
+  {
+    id: 'a33', slug: 'government-housing-renovation-japan', title: '老朽化する国家公務員宿舎、改修と使用料の課題',
+    description: '築年数の進んだ国家公務員宿舎について、若手が求める設備、改修方針、使用料調整の考え方を整理します。',
+    category: 'society', type: 'ニュース解説', tags: ['国家公務員宿舎', '住宅政策', '人材確保'], image: '/assets/government-housing-renovation-16x9.webp',
+    images: { wide: '/assets/government-housing-renovation-16x9.webp', landscape: '/assets/government-housing-renovation-4x3.webp', square: '/assets/government-housing-renovation-1x1.webp' },
+    publishedAt: '2026-11-08', author: commonAuthor, readTime: 9,
+    points: ['築50年を超える宿舎も使われている', '独立洗面台や独立トイレへの需要が確認されている', '改修後の居住性と使用料の公平性を両立する必要がある'],
+    sections: [
+      { heading: '宿舎の役割と老朽化', body: ['公務員宿舎は緊急対応や転勤を支える業務基盤でもあります。', '新規建設の抑制が続き、古い仕様の住戸が残っています。'] },
+      { heading: '入居者が求める設備', body: ['調査では独立洗面台や浴室、独立トイレへの要望が示されました。', '豪華さではなく現在の生活に必要な最低水準が問われています。'] },
+      { heading: '改修費と使用料の公平性', body: ['改修した住戸と未改修住戸の差を使用料へどう反映するかが課題です。', '採用と定着への効果も含めて投資を評価する必要があります。'] }
     ]
   }
 ];

@@ -27,7 +27,7 @@ async function loadArticles() {
 }
 
 const articles = await loadArticles();
-const byDate = [...articles].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+const byDate = [...articles].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt) || b.id.localeCompare(a.id));
 const categoryMap = Object.fromEntries(categories.map((item) => [item.slug, item]));
 const esc = (value = '') => String(value).replace(/[&<>\"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;' }[char]));
 const dateJP = (value) => value.replaceAll('-', '.');
