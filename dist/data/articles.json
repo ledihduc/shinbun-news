@@ -14,7 +14,7 @@
     "image": "/assets/data-center.jpg",
     "publishedAt": "2026-10-25",
     "updatedAt": "2026-10-25",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 7,
     "featured": true,
     "popular": 1,
@@ -64,7 +64,7 @@
     ],
     "image": "/assets/laptop-office.jpg",
     "publishedAt": "2026-10-24",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 6,
     "featured": true,
     "popular": 2,
@@ -113,7 +113,7 @@
     ],
     "image": "/assets/data-center.jpg",
     "publishedAt": "2026-10-23",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 8,
     "popular": 3,
     "points": [
@@ -156,7 +156,7 @@
     ],
     "image": "/assets/analytics-team.jpg",
     "publishedAt": "2026-10-21",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 7,
     "popular": 4,
     "points": [
@@ -199,7 +199,7 @@
     ],
     "image": "/assets/laptop-office.jpg",
     "publishedAt": "2026-10-20",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 8,
     "points": [
       "機能表より利用場面を比べる",
@@ -241,7 +241,7 @@
     ],
     "image": "/assets/factory-robot.jpg",
     "publishedAt": "2026-10-18",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 7,
     "points": [
       "導入前の状態を記録する",
@@ -283,7 +283,7 @@
     ],
     "image": "/assets/factory-robot.jpg",
     "publishedAt": "2026-10-17",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 9,
     "featured": true,
     "points": [
@@ -326,7 +326,7 @@
     ],
     "image": "/assets/factory-robot.jpg",
     "publishedAt": "2026-10-15",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 8,
     "popular": 5,
     "points": [
@@ -369,7 +369,7 @@
     ],
     "image": "/assets/analytics-team.jpg",
     "publishedAt": "2026-10-12",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 7,
     "points": [
       "停止影響で対象を選ぶ",
@@ -411,7 +411,7 @@
     ],
     "image": "/assets/security-ops.jpg",
     "publishedAt": "2026-10-11",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 8,
     "featured": true,
     "points": [
@@ -459,7 +459,7 @@
     ],
     "image": "/assets/security-ops.jpg",
     "publishedAt": "2026-10-09",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 6,
     "points": [
       "事実と推測を分ける",
@@ -501,7 +501,7 @@
     ],
     "image": "/assets/cloud-team.jpg",
     "publishedAt": "2026-10-07",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 7,
     "points": [
       "契約と利用実態を照合する",
@@ -543,7 +543,7 @@
     ],
     "image": "/assets/cloud-team.jpg",
     "publishedAt": "2026-10-05",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 7,
     "featured": true,
     "points": [
@@ -586,7 +586,7 @@
     ],
     "image": "/assets/data-center.jpg",
     "publishedAt": "2026-10-03",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 8,
     "points": [
       "共通化する範囲を限定する",
@@ -628,7 +628,7 @@
     ],
     "image": "/assets/data-center.jpg",
     "publishedAt": "2026-10-01",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 6,
     "points": [
       "復旧目標を業務と合意する",
@@ -670,7 +670,7 @@
     ],
     "image": "/assets/analytics-team.jpg",
     "publishedAt": "2026-09-29",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 7,
     "featured": true,
     "points": [
@@ -713,7 +713,7 @@
     ],
     "image": "/assets/laptop-office.jpg",
     "publishedAt": "2026-09-27",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 6,
     "points": [
       "発表主体と更新日を見る",
@@ -755,7 +755,7 @@
     ],
     "image": "/assets/analytics-team.jpg",
     "publishedAt": "2026-09-25",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 7,
     "points": [
       "利用者と判断場面を決める",
@@ -797,7 +797,7 @@
     ],
     "image": "/assets/cloud-team.jpg",
     "publishedAt": "2026-09-22",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 8,
     "points": [
       "データの意味を決める人を置く",
@@ -839,7 +839,7 @@
     ],
     "image": "/assets/cloud-team.jpg",
     "publishedAt": "2026-09-19",
-    "author": "TECH INSIGHT 編集部",
+    "author": "shinbun.news 編集部",
     "readTime": 6,
     "points": [
       "記録の対象を参加者へ伝える",

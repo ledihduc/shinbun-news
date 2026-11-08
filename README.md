@@ -1,4 +1,4 @@
-# TECH INSIGHT
+# shinbun.news　新聞・NEWS
 
 Static-first Japanese technology news website. It generates crawlable HTML for the homepage, category pages, article pages, and search page.
 

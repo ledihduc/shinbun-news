@@ -6,7 +6,7 @@ export const categories = [
   { slug: 'manufacturing', name: '製造・ロボティクス', short: '製造', description: '製造現場のデータ活用と自動化を、働く人の視点から考えます。' }
 ];
 
-const commonAuthor = 'TECH INSIGHT 編集部';
+const commonAuthor = 'shinbun.news 編集部';
 
 export const articles = [
   {

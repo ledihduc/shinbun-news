@@ -34,6 +34,7 @@ button { color: inherit; }
 .site-header { position: relative; z-index: 20; background: rgba(255, 255, 255, .97); border-bottom: 1px solid var(--line); }
 .header-main { display: flex; align-items: center; justify-content: space-between; min-height: 90px; }
 .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink-strong); font-size: clamp(22px, 2.5vw, 34px); font-weight: 900; line-height: 1; letter-spacing: .035em; }
+.brand-jp { margin-left: -4px; font-family: var(--serif); font-size: .58em; font-weight: 700; letter-spacing: .02em; }
 .brand-mark { width: 18px; height: 22px; background: var(--blue); box-shadow: inset -5px 0 0 rgba(23, 43, 69, .15); }
 .header-actions { display: flex; align-items: center; gap: 10px; }
 .search-link { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; padding: 6px 4px 6px 14px; color: var(--ink); font-weight: 700; }
@@ -508,6 +509,7 @@ body { color: #172033; font-family: var(--sans); line-height: 1.65; }
   .menu-button span { display: none; }
   .brand { font-size: 20px; white-space: nowrap; }
   .brand-mark { width: 9px; height: 22px; }
+  .brand-jp { font-size: .52em; }
   .header-actions { justify-self: end; }
   .header-quick-link { display: none; }
   .search-link { display: inline-flex; width: 44px; }
