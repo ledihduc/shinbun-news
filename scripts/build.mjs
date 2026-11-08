@@ -7,13 +7,14 @@ const out = join(root, 'dist');
 const siteUrl = (process.env.SITE_URL || 'https://tech-insight-jp-20261025.ducswan36.chatgpt.site').replace(/\/$/, '');
 const siteName = 'shinbun.news　新聞・NEWS';
 const editorialName = 'shinbun.news 編集部';
-const assetVersion = '20261108-4';
+const assetVersion = '20261108-5';
 const policyUpdatedAt = '2026-11-08';
 const authorPath = '/authors/editorial-team/';
 const defaultRobots = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
 const adsenseClient = 'ca-pub-8439241871121285';
 const adsenseFeedSlot = '3015789884';
 const adsenseFeedLayoutKey = '-ha+d-1s-52+g5';
+const adsenseArticleSlot = '4818012051';
 
 async function loadArticles() {
   if (!process.env.CONTENT_API_URL) return localArticles;
@@ -111,6 +112,10 @@ function inFeedAd() {
   return `<div class="feed-ad" data-feed-ad aria-label="広告"><span class="feed-ad-label">広告</span><ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="${adsenseFeedLayoutKey}" data-ad-client="${adsenseClient}" data-ad-slot="${adsenseFeedSlot}"></ins></div>`;
 }
 
+function inArticleAd() {
+  return `<div class="article-ad" data-article-ad aria-label="広告"><span class="feed-ad-label">広告</span><ins class="adsbygoogle" style="display:block;text-align:center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="${adsenseClient}" data-ad-slot="${adsenseArticleSlot}"></ins></div>`;
+}
+
 function renderFeed(items, renderer, insertAfter = 3) {
   const output = items.map(renderer);
   if (insertAfter > 0 && output.length > insertAfter) output.splice(insertAfter, 0, inFeedAd());
@@ -176,7 +181,7 @@ function articlePage(article) {
   const content = `<div class="shell breadcrumb"><a href="/">トップ</a><span>/</span><a href="/category/${category.slug}/">${esc(category.name)}</a><span>/</span><span>記事</span></div>
   <article class="article-shell"><header class="article-header"><div class="eyebrow"><a href="/category/${category.slug}/">${esc(category.name)}</a><span>・${esc(article.type)}</span></div><h1>${esc(article.title)}</h1><p class="dek">${esc(article.description)}</p><div class="article-byline"><div><strong><a href="${authorPath}" rel="author">${esc(article.author)}</a></strong><div class="meta"><time datetime="${withTimeZone(article.publishedAt)}">公開 ${dateJP(article.publishedAt)}</time>${article.updatedAt && article.updatedAt !== article.publishedAt ? `<time datetime="${withTimeZone(article.updatedAt)}">更新 ${dateJP(article.updatedAt)}</time>` : ''}<span>${article.readTime}分で読める</span></div></div><button class="share-button" type="button" data-copy-url>${icon('link')}<span>リンクをコピー</span></button></div></header>
   <figure class="article-hero">${responsiveImage(article.image, `${article.title}のイメージ`, 'width="1440" height="810" fetchpriority="high"', article.images)}<figcaption>${editorialName}によるイメージ</figcaption></figure>
-  <div class="article-layout"><div class="article-body"><section class="points"><h2>この記事のポイント</h2><ul>${article.points.map((point) => `<li>${esc(point)}</li>`).join('')}</ul></section><details class="mobile-toc"><summary>目次</summary><ol>${article.sections.map((section, index) => `<li><a href="#section-${index + 1}">${esc(section.heading)}</a></li>`).join('')}</ol></details>${article.sections.map((section, index) => `<section id="section-${index + 1}" class="prose-section"><span class="section-number">0${index + 1}</span><h2>${esc(section.heading)}</h2>${section.body.map((p) => `<p>${esc(p)}</p>`).join('')}${section.list ? `<ul>${section.list.map((li) => `<li>${esc(li)}</li>`).join('')}</ul>` : ''}${index === 1 ? `<figure class="article-inline-image">${responsiveImage(article.image, '', 'loading="lazy" width="900" height="506"', article.images)}</figure>` : ''}</section>`).join('')}${sourceBox}</div><aside class="article-aside"><nav class="toc panel" aria-label="目次"><span>CONTENTS</span><h2>目次</h2><ol>${article.sections.map((section, index) => `<li><a href="#section-${index + 1}"><span>0${index + 1}</span>${esc(section.heading)}</a></li>`).join('')}</ol></nav></aside></div>
+  <div class="article-layout"><div class="article-body"><section class="points"><h2>この記事のポイント</h2><ul>${article.points.map((point) => `<li>${esc(point)}</li>`).join('')}</ul></section><details class="mobile-toc"><summary>目次</summary><ol>${article.sections.map((section, index) => `<li><a href="#section-${index + 1}">${esc(section.heading)}</a></li>`).join('')}</ol></details>${article.sections.map((section, index) => `<section id="section-${index + 1}" class="prose-section"><span class="section-number">0${index + 1}</span><h2>${esc(section.heading)}</h2>${section.body.map((p) => `<p>${esc(p)}</p>`).join('')}${section.list ? `<ul>${section.list.map((li) => `<li>${esc(li)}</li>`).join('')}</ul>` : ''}${index === 1 ? `<figure class="article-inline-image">${responsiveImage(article.image, '', 'loading="lazy" width="900" height="506"', article.images)}</figure>` : ''}</section>${index === 0 ? inArticleAd() : ''}`).join('')}${sourceBox}</div><aside class="article-aside"><nav class="toc panel" aria-label="目次"><span>CONTENTS</span><h2>目次</h2><ol>${article.sections.map((section, index) => `<li><a href="#section-${index + 1}"><span>0${index + 1}</span>${esc(section.heading)}</a></li>`).join('')}</ol></nav></aside></div>
   <section class="related"><div class="shell"><div class="section-head section-head--line"><h2>関連記事</h2><a href="/category/${category.slug}/">${esc(category.name)}をもっと見る ${icon('arrow')}</a></div><div class="card-grid">${related.map((item) => articleCard(item)).join('')}</div></div></section></article>`;
   return page({ title: article.title, description: seoDescription, path, active: article.category, image: article.image, schema: articleSchema, content, bodyClass: 'article-page', pageType: 'article', article });
 }

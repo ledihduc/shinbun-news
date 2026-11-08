@@ -97,6 +97,9 @@ for (const article of articles) {
   if (!html.includes('"@type":"NewsArticle"')) errors.push(`${article.slug}: missing NewsArticle JSON-LD`);
   if (!html.includes('"@type":"BreadcrumbList"')) errors.push(`${article.slug}: missing breadcrumb JSON-LD`);
   if (!html.includes('/authors/editorial-team/')) errors.push(`${article.slug}: missing author URL`);
+  const articleAds = html.match(/data-ad-slot="4818012051"/g) || [];
+  if (articleAds.length !== 1) errors.push(`${article.slug}: expected exactly one configured in-article ad`);
+  if (!html.includes('data-ad-layout="in-article"') || !html.includes('data-ad-format="fluid"')) errors.push(`${article.slug}: incomplete in-article ad configuration`);
   const schemaText = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/i)?.[1];
   try {
     const schema = JSON.parse(schemaText || '{}');
