@@ -7,7 +7,7 @@ const out = join(root, 'dist');
 const siteUrl = (process.env.SITE_URL || 'https://shinbun.news').replace(/\/$/, '');
 const siteName = '新聞・ニュース';
 const editorialName = '新聞・ニュース編集部';
-const assetVersion = '20261108-5';
+const assetVersion = '20261108-6';
 const policyUpdatedAt = '2026-11-08';
 const authorPath = '/authors/editorial-team/';
 const defaultRobots = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
@@ -66,7 +66,6 @@ function icon(name) {
 function header(active = '') {
   const links = [{ slug: '', name: 'トップ' }, ...categories];
   return `<a class="skip-link" href="#main">本文へ移動</a>
-  <div class="utility"><div class="shell"><a href="/about/">${siteName}について</a><time datetime="${policyUpdatedAt}">${dateJP(policyUpdatedAt)}</time></div></div>
   <header class="site-header">
     <div class="shell header-main">
       <div class="header-discovery"><button class="menu-button" type="button" aria-label="メニューを開く" aria-controls="site-nav" aria-expanded="false">${icon('menu')}<span>メニュー</span></button><form class="header-search-form" action="/search/" role="search"><label class="sr-only" for="header-search">記事を検索</label><input id="header-search" name="q" type="search" placeholder="キーワードで記事を検索"><button type="submit" aria-label="検索">${icon('search')}</button></form></div>
