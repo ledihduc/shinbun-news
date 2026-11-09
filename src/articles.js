@@ -1,4 +1,5 @@
 import { editorialContent } from './editorial-content.js';
+import { dailyNews20261109 } from './daily-news-2026-11-09.js';
 
 export const categories = [
   { slug: 'ai', name: 'AI・生成AI', short: 'AI', description: '生成AIとAIエージェントを、実務で安全に生かすための知識と事例を届けます。' },
@@ -416,7 +417,7 @@ const baseArticles = [
   }
 ];
 
-export const articles = baseArticles.map((article) => {
+const revisedBaseArticles = baseArticles.map((article) => {
   const revision = editorialContent[article.slug];
   if (!revision) throw new Error(`Missing editorial revision for article: ${article.slug}`);
 
@@ -427,3 +428,8 @@ export const articles = baseArticles.map((article) => {
     author: commonAuthor
   };
 });
+
+export const articles = [
+  ...dailyNews20261109.map((article) => ({ ...article, author: commonAuthor })),
+  ...revisedBaseArticles
+];
