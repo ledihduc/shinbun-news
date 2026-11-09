@@ -1,5 +1,6 @@
 import { editorialContent } from './editorial-content.js';
 import { dailyNews20261109 } from './daily-news-2026-11-09.js';
+import { dailyTech20261109 } from './daily-tech-2026-11-09.js';
 
 export const categories = [
   { slug: 'ai', name: 'AI・生成AI', short: 'AI', description: '生成AIとAIエージェントを、実務で安全に生かすための知識と事例を届けます。' },
@@ -430,6 +431,7 @@ const revisedBaseArticles = baseArticles.map((article) => {
 });
 
 export const articles = [
+  ...dailyTech20261109.map((article) => ({ ...article, author: commonAuthor })),
   ...dailyNews20261109.map((article) => ({ ...article, author: commonAuthor })),
   ...revisedBaseArticles
 ];
