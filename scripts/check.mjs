@@ -55,7 +55,7 @@ for (const article of articles) {
 const requiredOutputs = [
   'index.html', 'search/index.html', 'sitemap.xml', 'news-sitemap.xml', 'robots.txt', 'feed.xml', 'ads.txt', '404.html',
   'editorial-policy/index.html', 'authors/editorial-team/index.html',
-  'privacy/index.html', 'assets/publisher-logo.svg'
+  'privacy/index.html', 'assets/publisher-logo.png'
 ];
 for (const path of requiredOutputs) if (!await exists(join(dist, path))) errors.push(`missing build output: ${path}`);
 if (await exists(join(dist, 'about', 'index.html'))) errors.push('removed About page is still present in the build');
