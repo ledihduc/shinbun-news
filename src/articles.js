@@ -1,4 +1,5 @@
 import { editorialContent } from './editorial-content.js';
+import { dailyNews20261115 } from './daily-news-2026-11-15.js';
 import { dailyNews20261114 } from './daily-news-2026-11-14.js';
 import { dailyTech20261114 } from './daily-tech-2026-11-14.js';
 import { dailyNews20261113 } from './daily-news-2026-11-13.js';
@@ -439,6 +440,7 @@ const revisedBaseArticles = baseArticles.map((article) => {
 });
 
 export const articles = [
+  ...dailyNews20261115,
   ...dailyNews20261114,
   ...dailyTech20261114,
   ...dailyNews20261113,
