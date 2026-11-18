@@ -45,7 +45,7 @@ const baseArticles = [
   {
     id: 'a02', slug: 'generative-ai-from-poc-to-production', title: '生成AIの業務導入、PoCから本番運用へ進むための5つの視点',
     description: '試行で終わらせず、現場で継続利用される仕組みに育てるための評価指標と運用設計を解説します。',
-    category: 'ai', type: '導入事例', tags: ['生成AI', 'PoC', '業務改革'], image: '/assets/laptop-office.jpg',
+    category: 'ai', type: 'ニュース解説', tags: ['生成AI', 'PoC', '業務改革'], image: '/assets/laptop-office.jpg',
     publishedAt: '2026-10-24', author: commonAuthor, readTime: 6, featured: true, popular: 2,
     points: ['利用頻度より業務成果を見る', '品質を測れる基準を用意する', '現場の改善提案を運用に戻す'],
     sections: [
@@ -93,7 +93,7 @@ const baseArticles = [
   {
     id: 'a06', slug: 'measuring-ai-introduction', title: 'AI導入の効果をどう測るか',
     description: '効率化だけに偏らず、品質、リスク、学習効果まで含めたAI導入の評価方法を考えます。',
-    category: 'ai', type: '導入事例', tags: ['AI', '効果測定', 'KPI'], image: '/assets/factory-robot.jpg',
+    category: 'ai', type: 'ニュース解説', tags: ['AI', '効果測定', 'KPI'], image: '/assets/factory-robot.jpg',
     publishedAt: '2026-10-18', author: commonAuthor, readTime: 7,
     points: ['導入前の状態を記録する', '定量と定性を組み合わせる', '評価結果から停止も判断する'],
     sections: [
@@ -105,7 +105,7 @@ const baseArticles = [
   {
     id: 'a07', slug: 'manufacturing-dx-data-to-improvement', title: '製造現場のDX、データを業務改善につなげる',
     description: '設備データを集めるだけで終わらせず、現場の判断と改善活動につなげる進め方を紹介します。',
-    category: 'manufacturing', type: '導入事例', tags: ['製造DX', 'IoT', '業務改善'], image: '/assets/factory-robot.jpg',
+    category: 'manufacturing', type: 'ニュース解説', tags: ['製造DX', 'IoT', '業務改善'], image: '/assets/factory-robot.jpg',
     publishedAt: '2026-10-17', author: commonAuthor, readTime: 9, featured: true,
     points: ['課題から必要データを逆算する', '現場の判断を可視化する', '改善の小さな成功を共有する'],
     sections: [
@@ -153,7 +153,7 @@ const baseArticles = [
   {
     id: 'a11', slug: 'incident-first-hour', title: 'セキュリティ事故、最初の1時間に確認すること',
     description: '混乱しやすい初動で、被害拡大を防ぎながら事実を保全するための確認順序を整理します。',
-    category: 'security', type: 'ニュース', tags: ['インシデント対応', '初動', 'BCP'], image: '/assets/security-ops.jpg',
+    category: 'security', type: 'ニュース解説', tags: ['インシデント対応', '初動', 'BCP'], image: '/assets/security-ops.jpg',
     publishedAt: '2026-10-09', author: commonAuthor, readTime: 6,
     points: ['事実と推測を分ける', '証拠を保全して影響を抑える', '連絡窓口を一本化する'],
     sections: [
@@ -201,7 +201,7 @@ const baseArticles = [
   {
     id: 'a15', slug: 'backup-restore-rehearsal', title: 'バックアップは「戻せるか」で評価する',
     description: '取得できている安心から一歩進み、復旧時間と手順を確認するリストア訓練の進め方を解説します。',
-    category: 'cloud', type: '導入事例', tags: ['バックアップ', '復旧', 'BCP'], image: '/assets/data-center.jpg',
+    category: 'cloud', type: '技術解説', tags: ['バックアップ', '復旧', 'BCP'], image: '/assets/data-center.jpg',
     publishedAt: '2026-10-01', author: commonAuthor, readTime: 6,
     points: ['復旧目標を業務と合意する', '別環境で定期的に戻す', '手順の詰まりを記録する'],
     sections: [
@@ -225,7 +225,7 @@ const baseArticles = [
   {
     id: 'a17', slug: 'primary-sources-for-tech-news', title: '技術ニュースを読み解く、一次情報の確かめ方',
     description: '発表資料や技術文書へ戻り、見出しだけでは分からない条件と対象範囲を確認する方法をまとめます。',
-    category: 'dx', type: 'ニュース', tags: ['情報収集', '一次情報', 'リテラシー'], image: '/assets/laptop-office.jpg',
+    category: 'dx', type: 'ニュース解説', tags: ['情報収集', '一次情報', 'リテラシー'], image: '/assets/laptop-office.jpg',
     publishedAt: '2026-09-27', author: commonAuthor, readTime: 6,
     points: ['発表主体と更新日を見る', '適用条件と除外条件を探す', '複数の資料を照合する'],
     sections: [
@@ -261,7 +261,7 @@ const baseArticles = [
   {
     id: 'a20', slug: 'meeting-automation-boundaries', title: '会議業務を自動化するときの境界線',
     description: '文字起こし、要約、タスク抽出を安全に使いながら、人が担う合意形成を守る設計を考えます。',
-    category: 'dx', type: '導入事例', tags: ['業務自動化', '生成AI', '会議'], image: '/assets/cloud-team.jpg',
+    category: 'dx', type: 'ニュース解説', tags: ['業務自動化', '生成AI', '会議'], image: '/assets/cloud-team.jpg',
     publishedAt: '2026-09-19', author: commonAuthor, readTime: 6,
     points: ['記録の対象を参加者へ伝える', '決定事項は人が確認する', '保存期間と共有範囲を決める'],
     sections: [
