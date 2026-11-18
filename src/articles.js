@@ -24,7 +24,8 @@ export const categories = [
   { slug: 'cloud', name: 'クラウド', short: 'クラウド', description: 'クラウドの設計、運用、コスト最適化を、実践的な視点で読み解きます。' },
   { slug: 'manufacturing', name: '製造・ロボティクス', short: '製造', description: '製造現場のデータ活用と自動化を、働く人の視点から考えます。' },
   { slug: 'business', name: '経済・ビジネス', short: '経済', description: '企業戦略、雇用、市場、消費の変化を、一次情報とデータから読み解きます。' },
-  { slug: 'society', name: '社会・暮らし', short: '社会', description: '教育、働き方、防災、旅、住まいなど、暮らしに関わる変化を公表資料から読み解きます。' }
+  { slug: 'society', name: '社会・暮らし', short: '社会', description: '教育、働き方、防災、旅、住まいなど、暮らしに関わる変化を公表資料から読み解きます。' },
+  { slug: 'reading', name: '読み物・教養', short: '読み物', description: '科学、歴史、思想を一次資料からたどる長編の読み物。日々のニュースから一歩離れて、じっくり読むための記事を集めます。' }
 ];
 
 const commonAuthor = '新聞・ニュース編集部';
