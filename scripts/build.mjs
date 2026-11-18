@@ -128,9 +128,10 @@ function ranking(items) {
 }
 
 function homePage() {
-  const [lead, second, third] = [articles.find((a) => a.slug === 'ai-agent-data-and-permissions'), articles.find((a) => a.slug === 'manufacturing-dx-data-to-improvement'), articles.find((a) => a.slug === 'zero-trust-basics')];
-  const fourth = articles.find((a) => a.slug === 'cloud-cost-first-step');
-  const leadRelated = byDate.filter((a) => a.id !== lead.id).slice(0, 3);
+  const latestDate = byDate[0].publishedAt;
+  const picks = [...articles.filter((a) => a.publishedAt === latestDate), ...byDate.filter((a) => a.publishedAt !== latestDate)].slice(0, 4);
+  const [lead, second, third, fourth] = picks;
+  const leadRelated = [...byDate.filter((a) => a.category === lead.category && a.id !== lead.id), ...byDate.filter((a) => a.category !== lead.category && a.id !== lead.id)].slice(0, 3);
   const latest = byDate.filter((a) => ![lead.id, second.id, third.id].includes(a.id)).slice(0, 7);
   const popular = [...articles].filter((a) => a.popular).sort((a, b) => a.popular - b.popular).slice(0, 5);
   const groups = ['ai', 'security', 'cloud'].map((slug) => ({ category: categoryMap[slug], items: byDate.filter((a) => a.category === slug).slice(0, 3) }));
