@@ -185,6 +185,7 @@ select { min-height: 42px; padding: 6px 36px 6px 12px; border: 1px solid var(--l
 .prose-section li + li { margin-top: 8px; }
 .article-inline-image { margin: 34px 0; }
 .article-inline-image img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.article-inline-image figcaption { margin-top: 8px; color: var(--muted); font-size: 11px; text-align: right; }
 .source-box { padding: 27px 30px; margin-top: 65px; border: 1px solid var(--line); background: #fbfcfe; font-family: var(--sans); }
 .source-box h2 { margin: 0 0 7px; font-size: 16px; }
 .source-box p { margin: 0; color: var(--muted); font-size: 13px; }
