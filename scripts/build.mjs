@@ -7,7 +7,7 @@ const out = join(root, 'dist');
 const siteUrl = (process.env.SITE_URL || 'https://shinbun.news').replace(/\/$/, '');
 const siteName = '新聞・ニュース';
 const editorialName = '新聞・ニュース編集部';
-const assetVersion = '20261108-8';
+const assetVersion = '20261118-1';
 const policyUpdatedAt = '2026-11-08';
 const authorPath = '/authors/editorial-team/';
 const defaultRobots = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
@@ -161,7 +161,7 @@ function categoryPage(category) {
   const content = `<div class="shell breadcrumb"><a href="/">トップ</a><span>/</span><span>${esc(category.name)}</span></div>
   <section class="shell category-hero"><div><span class="section-kicker">CATEGORY</span><h1>${esc(category.name)}</h1><p>${esc(category.description)}</p></div><div class="category-index">${String(categories.findIndex((c) => c.slug === category.slug) + 1).padStart(2, '0')}</div></section>
   <section class="shell category-feature">${articleCard(feature, 'article-card--feature')}</section>
-  <div class="shell filter-row" data-filter-root><div class="filter-tabs" role="group" aria-label="記事タイプ"><button class="is-active" data-filter-type="all">すべて</button>${['ニュース', '技術解説', '導入事例'].map((type) => `<button data-filter-type="${type}">${type}</button>`).join('')}</div><label>並び順<select data-sort><option value="new">新しい順</option><option value="old">古い順</option></select></label></div>
+  <div class="shell filter-row" data-filter-root><div class="filter-tabs" role="group" aria-label="記事タイプ"><button class="is-active" data-filter-type="all">すべて</button>${['ニュース', '技術解説', '導入事例'].filter((type) => items.some((article) => article.type === type)).map((type) => `<button data-filter-type="${type}">${type}</button>`).join('')}</div><label>並び順<select data-sort><option value="new">新しい順</option><option value="old">古い順</option></select></label></div>
   <section class="shell category-layout"><div><div class="category-card-grid" id="category-list">${renderFeed(rest, articleCard, Math.max(0, Math.min(2, rest.length - 1)))}</div><div class="empty-state" data-empty hidden><h2>記事が見つかりませんでした。</h2><p>別の種類を選んでください。</p></div><button class="button button--outline" type="button" data-load-more data-target="#category-list" data-step="4">もっと見る</button></div><aside><div class="panel keyword-panel"><h2>この分野のキーワード</h2><div>${[...new Set(items.flatMap((a) => a.tags))].slice(0, 7).map((t) => `<a href="/search/?q=${encodeURIComponent(t)}">${esc(t)}</a>`).join('')}</div></div>${ranking(popular)}</aside></section>`;
   return page({ title: category.name, description, path, active: category.slug, image: feature.image, schema, content, bodyClass: 'category-page' });
 }
