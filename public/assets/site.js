@@ -95,6 +95,7 @@
   if (filterRoot && categoryList) {
     let activeType = 'all';
     const sort = qs('[data-sort]', filterRoot);
+    const featureCard = qs('.category-feature [data-article]');
     const apply = () => {
       const items = qsa('[data-article]', categoryList);
       const feedAd = qs('[data-feed-ad]', categoryList);
@@ -109,7 +110,9 @@
         feedAd.hidden = visible.length <= 1;
         if (visible.length > 1) visible[Math.min(1, visible.length - 2)].after(feedAd);
       }
-      qs('[data-empty]').hidden = visible.length > 0;
+      const featureVisible = !featureCard || activeType === 'all' || featureCard.dataset.type === activeType;
+      if (featureCard) featureCard.hidden = !featureVisible;
+      qs('[data-empty]').hidden = visible.length > 0 || featureVisible;
       qs('[data-load-more]')?._update?.();
     };
     qsa('[data-filter-type]', filterRoot).forEach((button) => button.addEventListener('click', () => {
