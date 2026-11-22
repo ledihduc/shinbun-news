@@ -134,7 +134,7 @@ function homePage() {
   const leadRelated = [...byDate.filter((a) => a.category === lead.category && a.id !== lead.id), ...byDate.filter((a) => a.category !== lead.category && a.id !== lead.id)].slice(0, 3);
   const latest = byDate.filter((a) => ![lead.id, second.id, third.id].includes(a.id)).slice(0, 7);
   const popular = [...articles].filter((a) => a.popular).sort((a, b) => a.popular - b.popular).slice(0, 5);
-  const groups = ['ai', 'security', 'cloud'].map((slug) => ({ category: categoryMap[slug], items: byDate.filter((a) => a.category === slug).slice(0, 3) }));
+  const groups = ['ai', 'security', 'cloud', 'reading'].map((slug) => ({ category: categoryMap[slug], items: byDate.filter((a) => a.category === slug).slice(0, 3) }));
   const schema = schemaGraph(
     { '@type': 'WebSite', '@id': `${siteUrl}/#website`, name: '新聞・ニュース', alternateName: 'Shinbun.news', url: `${siteUrl}/`, inLanguage: 'ja-JP', publisher: { '@id': `${siteUrl}/#organization` }, potentialAction: { '@type': 'SearchAction', target: `${siteUrl}/search/?q={search_term_string}`, 'query-input': 'required name=search_term_string' } },
     { '@type': 'Organization', '@id': `${siteUrl}/#organization`, name: '新聞・ニュース', alternateName: 'Shinbun.news', url: `${siteUrl}/`, logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/publisher-logo.png`, width: 512, height: 512 }, sameAs: ['https://github.com/ledihduc/shinbun-news'] }
